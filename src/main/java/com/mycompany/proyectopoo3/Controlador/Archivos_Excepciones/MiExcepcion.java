@@ -1,4 +1,4 @@
-package com.mycompany.proyectopoo3.Controlador;
+package com.mycompany.proyectopoo3.Controlador.Archivos_Excepciones;
 
 public class MiExcepcion extends RuntimeException {
     //Atributos de la clase MiExcepcion

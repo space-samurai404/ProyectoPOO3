@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
 
-package com.mycompany.proyectopoo3.Interfaz_grafica;
+package com.mycompany.proyectopoo3.Vista;
 
 /**
  *
