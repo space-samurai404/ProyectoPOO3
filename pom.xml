@@ -8,6 +8,6 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>23</maven.compiler.release>
-        <exec.mainClass>com.mycompany.proyectopoo3.ProyectoPOO3</exec.mainClass>
+        <exec.mainClass>com.mycompany.proyectopoo3.Interfaz_grafica.ProyectoPOO3</exec.mainClass>
     </properties>
 </project>
