@@ -1,5 +1,5 @@
 package com.mycompany.proyectopoo3.Controlador.Archivos_Excepciones;
-import com.mycompany.proyectopoo3.Modelo.Usuario_Meta.Usuario;
+import com.mycompany.proyectopoo3.Modelo.Usuario_Meta_RegistroMetricas.Usuario;
 
 import java.io.*;
 import java.util.ArrayList;

@@ -1,5 +1,5 @@
 package com.mycompany.proyectopoo3.Controlador.Control_Gestores;
-import com.mycompany.proyectopoo3.Modelo.Usuario_Meta.Meta;
+import com.mycompany.proyectopoo3.Modelo.Usuario_Meta_RegistroMetricas.Meta;
 import java.util.ArrayList;
 
 public class GestorMetas {

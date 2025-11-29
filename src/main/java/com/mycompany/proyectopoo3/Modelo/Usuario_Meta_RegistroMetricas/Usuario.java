@@ -1,5 +1,5 @@
-package com.mycompany.proyectopoo3.Modelo.Usuario_Meta;
-import com.mycompany.proyectopoo3.Modelo.DispositivosWereables.Wereable;
+package com.mycompany.proyectopoo3.Modelo.Usuario_Meta_RegistroMetricas;
+import com.mycompany.proyectopoo3.Modelo.DispositivosWereables.Wearable;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -9,13 +9,14 @@ public class Usuario implements Serializable {
     private String nombre;
     private String contrasenna;
     private String correo;
-    private ArrayList<Wereable> wereablesAsociados;
+    private ArrayList<Wearable> wereablesAsociados;
     private ArrayList<Meta> metasActivas;
+    private ArrayList<RegistroMetricas> registroMetricas;
 
     //Métodos de la clase Usuario
     //--Constructores y getters-setters
     public Usuario() {}
-    public Usuario(String nombre, String contrasenna, String correo, ArrayList<Wereable> wereablesAsociados) {
+    public Usuario(String nombre, String contrasenna, String correo, ArrayList<Wearable> wereablesAsociados) {
         this.nombre = nombre;
         this.contrasenna = contrasenna;
         this.correo = correo;
@@ -39,16 +40,18 @@ public class Usuario implements Serializable {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
-    public ArrayList<Wereable> getWereablesAsociados() {
+    public ArrayList<Wearable> getWereablesAsociados() {
         return wereablesAsociados;
     }
-    public void setWereablesAsociados(ArrayList<Wereable> wereablesAsociados) {
-        this.wereablesAsociados = wereablesAsociados;
-    }
+    public void setWereablesAsociados(ArrayList<Wearable> wereablesAsociados) {this.wereablesAsociados = wereablesAsociados;}
     public ArrayList<Meta> getMetasActivas() {
         return metasActivas;
     }
     public void setMetasActivas(ArrayList<Meta> metasActivas) {
         this.metasActivas = metasActivas;
     }
+    public ArrayList<RegistroMetricas> getRegistroMetricas() {return registroMetricas;}
+    public void setRegistroMetricas(ArrayList<RegistroMetricas> registroMetricas) {this.registroMetricas = registroMetricas;}
+
+
 }

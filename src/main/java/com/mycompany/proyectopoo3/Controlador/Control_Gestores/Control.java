@@ -1,15 +1,16 @@
 package com.mycompany.proyectopoo3.Controlador.Control_Gestores;
 import com.mycompany.proyectopoo3.Controlador.Archivos_Excepciones.ICodigos;
 import com.mycompany.proyectopoo3.Controlador.Archivos_Excepciones.MiExcepcion;
-import com.mycompany.proyectopoo3.Modelo.Usuario_Meta.Usuario;
-import com.mycompany.proyectopoo3.Modelo.DispositivosWereables.Wereable;
+import com.mycompany.proyectopoo3.Modelo.Metricas.CantKilometros;
+import com.mycompany.proyectopoo3.Modelo.Metricas.HorasSuenno;
+import com.mycompany.proyectopoo3.Modelo.Metricas.RitmoCardiaco;
+import com.mycompany.proyectopoo3.Modelo.Usuario_Meta_RegistroMetricas.Usuario;
+import com.mycompany.proyectopoo3.Modelo.DispositivosWereables.Wearable;
 import java.util.ArrayList;
 
 public class Control {
     //Atributos de la clase control
     GestorUsuarios gestorUsuarios;
-    GestorWereables gestorWereables;
-    GestorMetricas gestorMetricas;
     GestorMetas gestorMetas;
     Usuario usuarioActual;
 
@@ -32,7 +33,7 @@ public class Control {
      * @return: Retorna true si se hace correctamente, lanza una excepcion si no.
      * @throws MiExcepcion
      */
-    public boolean registrarUsuario(String nombre, String contrasenna, String correo, ArrayList<Wereable> listaWereables) throws MiExcepcion {
+    public boolean registrarUsuario(String nombre, String contrasenna, String correo, ArrayList<Wearable> listaWereables) throws MiExcepcion {
         if (gestorUsuarios.verificarDatos(nombre, 1)) {
             throw new MiExcepcion(ICodigos.ERROR_USUARIO_INVALIDO);
         }
@@ -61,5 +62,19 @@ public class Control {
         }
         usuarioActual = gestorUsuarios.buscarUsuario(nombre,contrasenna);
     }
+    /**
+     * Metodo que muestra la información de las referencias de las 3 métricas medibles del sistema
+     * @return: Retorna un ArrayList de eleemntos String, cada elemento siendo la descripcion de la métrica.
+     * @throws MiExcepcion
+     */
+    public String mostrarReferenciasMetricas() {
+        ArrayList<String> datosMetricas = new ArrayList<String>();
+        datosMetricas.add(CantKilometros.obtenerDescripcion());
+        datosMetricas.add(RitmoCardiaco.obtenerDescripcion());
+        datosMetricas.add(HorasSuenno.obtenerDescripcion());
+        return datosMetricas.toString();
+    }
+
+
 
 }
