@@ -64,13 +64,13 @@
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="txt_nombreUsuario" alignment="0" max="32767" attributes="0"/>
                               <Component id="txt_emailUsuario" alignment="0" pref="264" max="32767" attributes="0"/>
                               <Component id="txt_ContraseñaUsuario" alignment="0" max="32767" attributes="0"/>
                               <Component id="btn_RegistrarCont" alignment="0" max="32767" attributes="0"/>
                               <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jScrollPane1" max="32767" attributes="0"/>
+                              <Component id="txt_nombreUsuario" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                       </Group>

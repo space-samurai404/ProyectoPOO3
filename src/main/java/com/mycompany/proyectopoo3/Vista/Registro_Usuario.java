@@ -81,13 +81,13 @@ public class Registro_Usuario extends javax.swing.JFrame {
                         .addGap(125, 125, 125))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txt_nombreUsuario, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txt_emailUsuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
                             .addComponent(txt_ContraseñaUsuario, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btn_RegistrarCont, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1))
+                            .addComponent(jScrollPane1)
+                            .addComponent(txt_nombreUsuario, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGap(20, 20, 20))))
         );
         jPanel1Layout.setVerticalGroup(
