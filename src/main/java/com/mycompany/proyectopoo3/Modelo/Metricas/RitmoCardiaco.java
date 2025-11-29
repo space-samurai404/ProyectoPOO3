@@ -1,16 +1,31 @@
 package com.mycompany.proyectopoo3.Modelo.Metricas;
 
+import com.mycompany.proyectopoo3.Modelo.User_Meta_Recom_RegMet.Recomendacion;
+
+import java.util.ArrayList;
+
 public class RitmoCardiaco extends Metrica {
     //Atributos de la clase RitmoCardiaco
-    private final static double VALOR_MIN = 0;
-    private final static double VALOR_MAX = 1;
+    private final static double VALOR_MIN = 60;
+    private final static double VALOR_MAX = 100;
 
     //Métodos de la clase RitmoCardiaco
-    //--Constructor
+    //--Constructores
     public RitmoCardiaco() {}
+    public RitmoCardiaco(String id) {
+        this.id = id;
+    }
     //--Métodos especiales
     public static String obtenerDescripcion() {
         return "Ritmo cardiaco: " + VALOR_MIN + " - " + VALOR_MAX;
     }
-
+    @Override
+    public ArrayList<Recomendacion> generarRecomendaciones() {
+        ArrayList<Recomendacion> rec = new ArrayList<Recomendacion>();
+        if (valorActual < VALOR_MIN)
+            rec.add(new Recomendacion(id, "Ritmo cardiaco muy bajo"));
+        if (valorActual > VALOR_MAX)
+            rec.add(new Recomendacion(id, "Ritmo cardiaco muy alto."));
+        return rec;
+    }
 }

@@ -19,11 +19,12 @@ public class MiExcepcion extends RuntimeException {
         switch (codigo) {
             case ICodigos.ERROR_CONTRASENNA_INVALIDA -> mensaje = "InvalidPasswordException";
             case ICodigos.ERROR_USUARIO_INVALIDO -> mensaje = "InvalidUserException";
-            case ICodigos.ERROR_CORREO_INVALIDA -> mensaje = "InvalidMailException";
+            case ICodigos.ERROR_CORREO_INVALIDO -> mensaje = "InvalidMailException";
             case ICodigos.ERROR_ARCHIVO_NO_EXISTE -> mensaje = "FileNotFoundException";
             case ICodigos.ERROR_ARCHIVO_WRITE -> mensaje = "FileWriteExcepion";
             case ICodigos.ERROR_CLASE_NO_ENCONTRADA -> mensaje = "ClassNotFoundException";
             case ICodigos.ERROR_ARCHIVO_READ -> mensaje = "FileReadException";
+            case ICodigos.ERROR_REGISTRO_NO_EXISTE -> mensaje = "RegistrationNotFoundException";
         }
         return mensaje;
     }

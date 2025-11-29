@@ -9,5 +9,22 @@ public class Wearable implements Serializable {
     private TipoWearable tipoWearable;
 
     //Métodos de la clase Wereable
+    //--Constructores y getters-setters
     public Wearable() {}
+    public Wearable(TipoWearable tipoWearable) {
+        this.tipoWearable = tipoWearable;
+
+    }
+    public ArrayList<Metrica> getMetricasAsociadas() {
+        return metricasAsociadas;
+    }
+    public void setMetricasAsociadas(ArrayList<Metrica> metricasAsociadas) {
+        this.metricasAsociadas = metricasAsociadas;
+    }
+    public TipoWearable getTipoWearable() {
+        return tipoWearable;
+    }
+    public void setTipoWearable(TipoWearable tipoWearable) {
+        this.tipoWearable = tipoWearable;
+    }
 }

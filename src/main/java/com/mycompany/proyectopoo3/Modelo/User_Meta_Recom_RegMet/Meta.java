@@ -10,6 +10,7 @@ public class Meta {
     //Métodos de la clase Meta
     //--Constructor y getters-setters
     public Meta() {}
+    public Meta(String descripcion, double porcentaje, Metrica metricaAsignada) {}
     public String getDescripcion() {
         return descripcion;
     }
@@ -28,6 +29,12 @@ public class Meta {
     public void setMetricaAsignada(Metrica metricaCorrespondiente) {
         this.metricaAsignada = metricaCorrespondiente;
     }
-
-
+    @Override
+    public String toString() {
+        return "Meta{" +
+                "descripcion='" + descripcion + '\'' +
+                ", porcentaje=" + porcentaje +
+                ", metricaAsignada=" + metricaAsignada +
+                '}';
+    }
 }

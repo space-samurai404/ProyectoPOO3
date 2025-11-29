@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class GestorUsuarios {
     //Atributos de la clase GestorUsuarios
     private ArrayList<Usuario> listaUsuarios;
+    private Usuario usuarioActual;
 
     //Métodos de la clase GestorUsuarios
     //--Constructor y getters-setters
@@ -17,6 +18,8 @@ public class GestorUsuarios {
     public void setListaUsuarios(ArrayList<Usuario> listaUsuarios) {
         this.listaUsuarios = listaUsuarios;
     }
+    public Usuario getUsuarioActual() {return usuarioActual;}
+    public void setUsuarioActual(Usuario usuarioActual) {this.usuarioActual = usuarioActual;}
     //--Métodos especiales
     /**
      * Metodo que verifica si existe un nombre, contrasenna o correo en el registro de usuarios.

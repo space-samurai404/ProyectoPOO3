@@ -9,8 +9,12 @@ public class RegistroMetricas {
     private LocalDate fecha;
 
     //Métodos de la clase RegistroMetricas
-    //--Constructor y getters-setters
+    //--Constructores y getters-setters
     public RegistroMetricas() {}
+    public RegistroMetricas(ArrayList<Metrica> metricasDiarias, LocalDate fecha) {
+        this.metricasDiarias = metricasDiarias;
+        this.fecha = fecha;
+    }
     public ArrayList<Metrica> getMetricasDiarias() {
         return metricasDiarias;
     }
@@ -22,5 +26,12 @@ public class RegistroMetricas {
     }
     public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
+    }
+    @Override
+    public String toString() {
+        return "RegistroMetricas{" +
+                "metricasDiarias=" + metricasDiarias +
+                ", fecha=" + fecha +
+                '}';
     }
 }

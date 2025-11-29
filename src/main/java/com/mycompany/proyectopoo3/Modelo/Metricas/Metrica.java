@@ -1,13 +1,18 @@
 package com.mycompany.proyectopoo3.Modelo.Metricas;
+import com.mycompany.proyectopoo3.Modelo.User_Meta_Recom_RegMet.Recomendacion;
+import java.util.ArrayList;
 
-public abstract class Metrica {
+public abstract class Metrica implements IRecomendaciones {
     //Atributos de la clase Metrica
     protected String id;
     protected double valorActual;
 
     //Métodos de la clase Metrica
-    //--Constructor y setters-getters
+    //--Constructores y setters-getters
     public Metrica() {}
+    public Metrica(String id) {
+        this.id = id;
+    }
     public String getId() {
         return id;
     }

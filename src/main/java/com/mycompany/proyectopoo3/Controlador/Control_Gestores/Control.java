@@ -3,15 +3,19 @@ import com.mycompany.proyectopoo3.Controlador.Archivos_Excepciones.ICodigos;
 import com.mycompany.proyectopoo3.Controlador.Archivos_Excepciones.MiExcepcion;
 import com.mycompany.proyectopoo3.Modelo.Metricas.CantKilometros;
 import com.mycompany.proyectopoo3.Modelo.Metricas.HorasSuenno;
+import com.mycompany.proyectopoo3.Modelo.Metricas.Metrica;
 import com.mycompany.proyectopoo3.Modelo.Metricas.RitmoCardiaco;
+import com.mycompany.proyectopoo3.Modelo.User_Meta_Recom_RegMet.Recomendacion;
+import com.mycompany.proyectopoo3.Modelo.User_Meta_Recom_RegMet.RegistroMetricas;
 import com.mycompany.proyectopoo3.Modelo.User_Meta_Recom_RegMet.Usuario;
 import com.mycompany.proyectopoo3.Modelo.DispositivosWereables.Wearable;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Control {
     //Atributos de la clase control
     GestorUsuarios gestorUsuarios;
-    Usuario usuarioActual;
 
     //Métodos de la clase control
     //--Constructor y getter
@@ -43,7 +47,7 @@ public class Control {
             throw new MiExcepcion(ICodigos.ERROR_CORREO_INVALIDO);
         }
         Usuario usuario = new Usuario(nombre, contrasenna, correo, listaWereables);
-        usuarioActual = usuario;
+        gestorUsuarios.setUsuarioActual(usuario);
         return gestorUsuarios.agregarUsuario(usuario);
     }
     /**
@@ -59,11 +63,12 @@ public class Control {
         if (gestorUsuarios.verificarDatos(contrasenna, 2)) {
             throw new MiExcepcion(ICodigos.ERROR_CONTRASENNA_INVALIDA);
         }
-        usuarioActual = gestorUsuarios.buscarUsuario(nombre,contrasenna);
+        Usuario usuario = gestorUsuarios.buscarUsuario(nombre,contrasenna);
+        gestorUsuarios.setUsuarioActual(usuario);
     }
     /**
      * Metodo que muestra la información de las referencias de las 3 métricas medibles del sistema
-     * @return: Retorna un ArrayList de eleemntos String, cada elemento siendo la descripcion de la métrica.
+     * @return: Retorna un ArrayList de elementos String, cada elemento siendo la descripcion de la métrica.
      * @throws MiExcepcion
      */
     public String mostrarReferenciasMetricas() {
@@ -71,9 +76,76 @@ public class Control {
         datosMetricas.add(CantKilometros.obtenerDescripcion());
         datosMetricas.add(RitmoCardiaco.obtenerDescripcion());
         datosMetricas.add(HorasSuenno.obtenerDescripcion());
-        return datosMetricas.toString();
+        return String.join("\n", datosMetricas);
+    }
+    /**
+     * Metodo que obtiene el ultimo registro de metricas realizado por la aplicación.
+     * @return : Retorna un atributo RegistroMetricas si encuentra el registro, si no lanza una excepción.
+     * @throws MiExcepcion
+     */
+    public RegistroMetricas obtenerRegistroDelDia() throws MiExcepcion {
+        Usuario usuarioActual = gestorUsuarios.getUsuarioActual();
+        LocalDate hoy = usuarioActual.getFechaUltRegistro();
+        for (RegistroMetricas registro : usuarioActual.getHistorial()) {
+            if (registro.getFecha().equals(hoy)) {
+                return registro;
+            }
+        }
+        throw new MiExcepcion(ICodigos.ERROR_REGISTRO_NO_EXISTE);
+    }
+    /**
+     * Metodo que genera un reporte consolidado a partir del ultimo registro de Metrica, que es equivalente
+     * de la ultima simulación realizada.
+     * @return : Retorna un String que es el reporte generado.
+     */
+    public String generarReporteConsolidado() throws MiExcepcion{
+        RegistroMetricas registro = obtenerRegistroDelDia();
+        Usuario usuarioActual = gestorUsuarios.getUsuarioActual();
+        StringBuilder reporte = new StringBuilder();
+        for (Metrica metrica : usuarioActual.getMetricasDiarias()) {
+            reporte.append(metrica.getId())
+                    .append(": ")
+                    .append(metrica.getValorActual())
+                    .append("\n");
+        }
+        return reporte.toString();
     }
 
+    public void generarRecomendacionesDelDia() {
+        Usuario u = gestorUsuarios.getUsuarioActual();
+        u.getRecomendacionesDiarias().clear();
+        RegistroMetricas registro = obtenerRegistroDelDia();
+        for (Metrica m : registro.getMetricasDiarias()) {
+            u.getRecomendacionesDiarias().addAll(m.generarRecomendaciones());
+        }
+    }
+
+    public String obtenerRecomendacionesDelDia() {
+        Usuario usuarioActual = gestorUsuarios.getUsuarioActual();
+        StringBuilder recomendaciones = new StringBuilder();
+        for (Recomendacion r : usuarioActual.getRecomendacionesDiarias()) {
+            recomendaciones.append(r.getDescripcion()).append("\n");
+        }
+        return recomendaciones.toString();
+    }
+
+    public String mostrarHistorial() {
+        Usuario usuarioActual = gestorUsuarios.getUsuarioActual();
+        StringBuilder historial = new StringBuilder();
+        for (RegistroMetricas registro : usuarioActual.getHistorial()) {
+            historial.append("Fecha: ").append(registro.getFecha()).append("\n");
+            for (Metrica metrica : registro.getMetricasDiarias()) {
+                historial.append("  - ")
+                        .append(metrica.getId())
+                        .append(": ")
+                        .append(metrica.getValorActual())
+                        .append("\n");
+            }
+
+            historial.append("\n");
+        }
+        return historial.toString();
+    }
 
 
 }
