@@ -4,14 +4,13 @@ import com.mycompany.proyectopoo3.Controlador.Archivos_Excepciones.MiExcepcion;
 import com.mycompany.proyectopoo3.Modelo.Metricas.CantKilometros;
 import com.mycompany.proyectopoo3.Modelo.Metricas.HorasSuenno;
 import com.mycompany.proyectopoo3.Modelo.Metricas.RitmoCardiaco;
-import com.mycompany.proyectopoo3.Modelo.Usuario_Meta_RegistroMetricas.Usuario;
+import com.mycompany.proyectopoo3.Modelo.User_Meta_Recom_RegMet.Usuario;
 import com.mycompany.proyectopoo3.Modelo.DispositivosWereables.Wearable;
 import java.util.ArrayList;
 
 public class Control {
     //Atributos de la clase control
     GestorUsuarios gestorUsuarios;
-    GestorMetas gestorMetas;
     Usuario usuarioActual;
 
     //Métodos de la clase control

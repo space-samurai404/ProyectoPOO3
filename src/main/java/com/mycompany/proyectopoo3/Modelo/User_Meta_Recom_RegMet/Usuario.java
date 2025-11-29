@@ -1,4 +1,4 @@
-package com.mycompany.proyectopoo3.Modelo.Usuario_Meta_RegistroMetricas;
+package com.mycompany.proyectopoo3.Modelo.User_Meta_Recom_RegMet;
 import com.mycompany.proyectopoo3.Modelo.DispositivosWereables.Wearable;
 
 import java.io.Serializable;
@@ -9,9 +9,10 @@ public class Usuario implements Serializable {
     private String nombre;
     private String contrasenna;
     private String correo;
-    private ArrayList<Wearable> wereablesAsociados;
+    private ArrayList<Wearable> weareblesAsociados;
     private ArrayList<Meta> metasActivas;
     private ArrayList<RegistroMetricas> registroMetricas;
+    private ArrayList<Recomendacion> recomendacionesDiarias;
 
     //Métodos de la clase Usuario
     //--Constructores y getters-setters
@@ -20,7 +21,7 @@ public class Usuario implements Serializable {
         this.nombre = nombre;
         this.contrasenna = contrasenna;
         this.correo = correo;
-        this.wereablesAsociados = wereablesAsociados;
+        this.weareblesAsociados = wereablesAsociados;
     }
     public String getNombre() {
         return nombre;
@@ -40,10 +41,10 @@ public class Usuario implements Serializable {
     public void setCorreo(String correo) {
         this.correo = correo;
     }
-    public ArrayList<Wearable> getWereablesAsociados() {
-        return wereablesAsociados;
+    public ArrayList<Wearable> getWeareblesAsociados() {
+        return weareblesAsociados;
     }
-    public void setWereablesAsociados(ArrayList<Wearable> wereablesAsociados) {this.wereablesAsociados = wereablesAsociados;}
+    public void setWeareblesAsociados(ArrayList<Wearable> wereablesAsociados) {this.weareblesAsociados = wereablesAsociados;}
     public ArrayList<Meta> getMetasActivas() {
         return metasActivas;
     }
@@ -52,6 +53,10 @@ public class Usuario implements Serializable {
     }
     public ArrayList<RegistroMetricas> getRegistroMetricas() {return registroMetricas;}
     public void setRegistroMetricas(ArrayList<RegistroMetricas> registroMetricas) {this.registroMetricas = registroMetricas;}
+    public ArrayList<Recomendacion> getRecomendacionesDiarias() {return recomendacionesDiarias;}
+    public void setRecomendacionesDiarias(ArrayList<Recomendacion> recomendacionesDiarias) {this.recomendacionesDiarias = recomendacionesDiarias;}
+
+
 
 
 }

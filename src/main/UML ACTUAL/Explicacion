@@ -1,0 +1,8 @@
+Mas que cada, funciona del modo que cada vez que se inicie la aplicación se cargue todos los usuarios de un archivo binario,
+tons el usuario buscar su usuario o así y lo abre. Ahí el atributo de Usuario llamado usuarioActual se vuelve esa cuenta iniciada
+o creada. Y de ahí se puede acceder acceder a las métricas t recomendaciones porque todo está guardado en el usuario, tons si
+el gestorUsuarios es más que nada para buscar. Luego todo gira alrededor del objeto usuario actual. Cambie lo del wearable que herede
+a un enum porque realmente las clases hijas no tenían diferencias entre ellas de ningún modo. Técnicamente es todo el esqueleto hecho,
+voy a ir agregando todo y creo terminarlo para la madrugada del 29/11/25. Si tienen comentarios sobre cambios que hacer en el diseño me avisan y eso,
+Tons si, iré trabajando en eso. Si leen esto escriban en este .ttx escriban un ensayo sobre como el ser humano busca ser un ente
+donde todo gire alrededor de él o un Hola Mundo.

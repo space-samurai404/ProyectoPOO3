@@ -3,9 +3,10 @@ import com.mycompany.proyectopoo3.Modelo.Metricas.Metrica;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class Wearable implements Serializable {
+public class Wearable implements Serializable {
     //Atributos de la clase Wereable
-    protected ArrayList<Metrica> metricasAsociadas;
+    private ArrayList<Metrica> metricasAsociadas;
+    private TipoWearable tipoWearable;
 
     //Métodos de la clase Wereable
     public Wearable() {}

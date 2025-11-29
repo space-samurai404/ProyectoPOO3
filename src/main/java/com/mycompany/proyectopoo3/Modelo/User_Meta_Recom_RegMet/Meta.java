@@ -1,11 +1,11 @@
-package com.mycompany.proyectopoo3.Modelo.Usuario_Meta_RegistroMetricas;
+package com.mycompany.proyectopoo3.Modelo.User_Meta_Recom_RegMet;
 import com.mycompany.proyectopoo3.Modelo.Metricas.Metrica;
 
 public class Meta {
     //Atributos de la clase Meta
     private String descripcion;
     private double porcentaje;
-    private Metrica metricaCorrespondiente;
+    private Metrica metricaAsignada;
 
     //Métodos de la clase Meta
     //--Constructor y getters-setters
@@ -22,10 +22,12 @@ public class Meta {
     public void setPorcentaje(double porcentaje) {
         this.porcentaje = porcentaje;
     }
-    public Metrica getMetricaCorrespondiente() {
-        return metricaCorrespondiente;
+    public Metrica getMetricaAsignada() {
+        return metricaAsignada;
     }
-    public void setMetricaCorrespondiente(Metrica metricaCorrespondiente) {
-        this.metricaCorrespondiente = metricaCorrespondiente;
+    public void setMetricaAsignada(Metrica metricaCorrespondiente) {
+        this.metricaAsignada = metricaCorrespondiente;
     }
+
+
 }

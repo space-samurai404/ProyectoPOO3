@@ -1,4 +1,4 @@
-package com.mycompany.proyectopoo3.Modelo.Usuario_Meta_RegistroMetricas;
+package com.mycompany.proyectopoo3.Modelo.User_Meta_Recom_RegMet;
 import com.mycompany.proyectopoo3.Modelo.Metricas.Metrica;
 import java.time.LocalDate;
 import java.util.ArrayList;
