@@ -3,18 +3,29 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.proyectopoo3.Vista;
-
+import com.mycompany.proyectopoo3.Controlador.Archivos_Excepciones.*;
+import com.mycompany.proyectopoo3.Controlador.Control_Gestores.*;
+import com.mycompany.proyectopoo3.Modelo.DispositivosWereables.*;
+import com.mycompany.proyectopoo3.Modelo.Metricas.*;
+import com.mycompany.proyectopoo3.Modelo.User_Meta_Recom_RegMet.*;
+import com.mycompany.proyectopoo3.Modelo.User_Meta_Recom_RegMet.*;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 /**
  *
  * @author paula
  */
 public class Registro_Usuario extends javax.swing.JFrame {
-
+    private Control controlador;
     /**
      * Creates new form Registro_Login
      */
     public Registro_Usuario() {
         initComponents();
+        lst_wearable.setListData(TipoWearable.values());
+        this.controlador=controlador;
     }
 
     /**
@@ -35,7 +46,7 @@ public class Registro_Usuario extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        lst_wearable = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(341, 627));
@@ -48,6 +59,11 @@ public class Registro_Usuario extends javax.swing.JFrame {
         btn_RegistrarCont.setBackground(new java.awt.Color(0, 0, 0));
         btn_RegistrarCont.setForeground(new java.awt.Color(255, 255, 255));
         btn_RegistrarCont.setText("Continuar");
+        btn_RegistrarCont.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_RegistrarContActionPerformed(evt);
+            }
+        });
 
         txt_nombreUsuario.setForeground(new java.awt.Color(153, 153, 153));
         txt_nombreUsuario.setText("Nombre de Usuario");
@@ -62,12 +78,7 @@ public class Registro_Usuario extends javax.swing.JFrame {
 
         jLabel3.setText("Dispositivo wearable:");
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Reloj Inteligente", "Ropa Inteligente", "Bicicleta Electrica" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(lst_wearable);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -81,13 +92,13 @@ public class Registro_Usuario extends javax.swing.JFrame {
                         .addGap(125, 125, 125))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txt_nombreUsuario, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txt_emailUsuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
                             .addComponent(txt_ContraseñaUsuario, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btn_RegistrarCont, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1))
+                            .addComponent(jScrollPane1)
+                            .addComponent(txt_nombreUsuario, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGap(20, 20, 20))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -132,6 +143,13 @@ public class Registro_Usuario extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    
+    private void btn_RegistrarContActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_RegistrarContActionPerformed
+        //ArrayList<Wearables> lista = new ArrayList<>(lst_wearable.getSelectedValuesList());
+        //controlador.registrarUsuario(txt_nombreUsuario.getText(), txt_ContraseñaUsuario.getText(), txt_emailUsuario.getText(), lst_wearable.getSelectedValuesList());
+    }//GEN-LAST:event_btn_RegistrarContActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -173,9 +191,9 @@ public class Registro_Usuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList<TipoWearable> lst_wearable;
     private javax.swing.JTextField txt_ContraseñaUsuario;
     private javax.swing.JTextField txt_emailUsuario;
     private javax.swing.JTextField txt_nombreUsuario;

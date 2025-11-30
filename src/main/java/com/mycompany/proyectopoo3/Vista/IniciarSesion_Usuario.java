@@ -3,18 +3,27 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.proyectopoo3.Vista;
+import com.mycompany.proyectopoo3.Controlador.Archivos_Excepciones.*;
+import com.mycompany.proyectopoo3.Controlador.Control_Gestores.*;
+import com.mycompany.proyectopoo3.Modelo.DispositivosWereables.*;
+import com.mycompany.proyectopoo3.Modelo.Metricas.*;
+import com.mycompany.proyectopoo3.Modelo.User_Meta_Recom_RegMet.*;
+import com.mycompany.proyectopoo3.Modelo.User_Meta_Recom_RegMet.*;
+
 
 /**
  *
  * @author paula
  */
 public class IniciarSesion_Usuario extends javax.swing.JFrame {
-
+    private Control controlador;
+    
     /**
      * Creates new form Registro_Login
      */
     public IniciarSesion_Usuario() {
         initComponents();
+        this.controlador=controlador;
     }
 
     /**
@@ -42,6 +51,11 @@ public class IniciarSesion_Usuario extends javax.swing.JFrame {
         btn_IniciarSesionCont.setBackground(new java.awt.Color(0, 0, 0));
         btn_IniciarSesionCont.setForeground(new java.awt.Color(255, 255, 255));
         btn_IniciarSesionCont.setText("Continuar");
+        btn_IniciarSesionCont.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_IniciarSesionContActionPerformed(evt);
+            }
+        });
 
         txt_nombreUsuarioConsulta.setForeground(new java.awt.Color(153, 153, 153));
         txt_nombreUsuarioConsulta.setText("Nombre de Usuario");
@@ -106,6 +120,10 @@ public class IniciarSesion_Usuario extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_IniciarSesionContActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_IniciarSesionContActionPerformed
+        controlador.iniciarSesion(txt_nombreUsuarioConsulta.getText(), txt_ContraseñaUsuarioConsulta.getText());
+    }//GEN-LAST:event_btn_IniciarSesionContActionPerformed
 
     /**
      * @param args the command line arguments
