@@ -1,10 +1,13 @@
 package com.mycompany.proyectopoo3.Controlador.Control_Gestores;
+import com.mycompany.proyectopoo3.Controlador.Archivos_Excepciones.GestorArchivos;
 import com.mycompany.proyectopoo3.Controlador.Archivos_Excepciones.ICodigos;
 import com.mycompany.proyectopoo3.Controlador.Archivos_Excepciones.MiExcepcion;
+import com.mycompany.proyectopoo3.Modelo.DispositivosWereables.TipoWearable;
 import com.mycompany.proyectopoo3.Modelo.Metricas.CantKilometros;
 import com.mycompany.proyectopoo3.Modelo.Metricas.HorasSuenno;
 import com.mycompany.proyectopoo3.Modelo.Metricas.Metrica;
 import com.mycompany.proyectopoo3.Modelo.Metricas.RitmoCardiaco;
+import com.mycompany.proyectopoo3.Modelo.User_Meta_Recom_RegMet.Meta;
 import com.mycompany.proyectopoo3.Modelo.User_Meta_Recom_RegMet.Recomendacion;
 import com.mycompany.proyectopoo3.Modelo.User_Meta_Recom_RegMet.RegistroMetricas;
 import com.mycompany.proyectopoo3.Modelo.User_Meta_Recom_RegMet.Usuario;
@@ -36,7 +39,11 @@ public class Control {
      * @return: Retorna true si se hace correctamente, lanza una excepcion si no.
      * @throws MiExcepcion
      */
-    public boolean registrarUsuario(String nombre, String contrasenna, String correo, ArrayList<Wearable> listaWereables) throws MiExcepcion {
+    public boolean registrarUsuario(String nombre, String contrasenna, String correo, ArrayList<TipoWearable> listaTipos) throws MiExcepcion {
+        if (!correo.contains("@gmail.com")) {
+            // Lanza excepción por formato incorrecto (ej. 'Edu' o 'test@hotmail.com')
+            throw new MiExcepcion(ICodigos.ERROR_CORREO_INVALIDO);
+        }
         if (gestorUsuarios.verificarDatos(nombre, 1)) {
             throw new MiExcepcion(ICodigos.ERROR_USUARIO_INVALIDO);
         }
@@ -46,7 +53,12 @@ public class Control {
         if (gestorUsuarios.verificarDatos(correo,3)) {
             throw new MiExcepcion(ICodigos.ERROR_CORREO_INVALIDO);
         }
-        Usuario usuario = new Usuario(nombre, contrasenna, correo, listaWereables);
+        ArrayList<Wearable> listaWearables = new ArrayList<>();
+        for (TipoWearable tipo : listaTipos) {
+            Wearable w = new Wearable(tipo);
+            listaWearables.add(w);
+        }
+        Usuario usuario = new Usuario(nombre, contrasenna, correo, listaWearables);
         gestorUsuarios.setUsuarioActual(usuario);
         return gestorUsuarios.agregarUsuario(usuario);
     }
@@ -54,17 +66,63 @@ public class Control {
      * Metodo que inicia sesión, poniendolo como usuario actual del sistema.
      * @param nombre: Atributo String de la cuenta a iniciar sesión.
      * @param contrasenna: Atributo String que representa la contraseña de la cuenta a iniciar sesión.
+     * @return: Atributo true si se logra bien, si no lanza una excepción.
      * @throws MiExcepcion
      */
-    public void iniciarSesion(String nombre, String contrasenna) throws MiExcepcion {
-        if (gestorUsuarios.verificarDatos(nombre, 1)) {
+    public boolean iniciarSesion(String nombre, String contrasenna) throws MiExcepcion {
+        if (!gestorUsuarios.verificarDatos(nombre, 1)) {
             throw new MiExcepcion(ICodigos.ERROR_USUARIO_INVALIDO);
         }
-        if (gestorUsuarios.verificarDatos(contrasenna, 2)) {
+        if (!gestorUsuarios.verificarDatos(contrasenna, 2)) {
             throw new MiExcepcion(ICodigos.ERROR_CONTRASENNA_INVALIDA);
         }
         Usuario usuario = gestorUsuarios.buscarUsuario(nombre,contrasenna);
         gestorUsuarios.setUsuarioActual(usuario);
+        return true;
+    }
+    /**
+     * Metodo que guarda la información de todos los usuarios de la acplicación en un archivo binario.
+     * @return : Retorna true si se guarda correctamente, si no lanza una excepción.
+     * @throws MiExcepcion
+     */
+    public boolean guardarUsuarios() throws MiExcepcion {
+        GestorArchivos gestor = new GestorArchivos();
+        gestor.setListaUsuarios(gestorUsuarios.getListaUsuarios());
+        gestor.guardarUsuarios("Usuarios.bin");
+        return true;
+    }
+    /**
+     * Metodo que carga la informacion de los usuarios de un archivo binario.
+     * @return : Retorna true si se carga adecuadamente, si no lanza excepción.
+     * @throws MiExcepcion
+     */
+    public boolean cargarUsuario() throws MiExcepcion {
+        GestorArchivos gestor = new GestorArchivos();
+        gestor.cargarUsuarios("Usuarios.bin");
+        gestorUsuarios.setListaUsuarios(gestor.getListaUsuarios());
+        return true;
+    }
+    /**
+     * Metodo que procesa los valores obtenidos de la simulacion, y agrega un registroMetricas al historial del usuarioActual.
+     * @throws MiExcepcion
+     */
+    public void procesarMetricas() throws MiExcepcion {
+        Usuario usuarioActual = gestorUsuarios.getUsuarioActual();
+        LocalDate fechaNueva = usuarioActual.getFechaUltRegistro().plusDays(1);
+        RegistroMetricas registro = new RegistroMetricas();
+        usuarioActual.setFechaUltRegistro(fechaNueva);
+        registro.setFecha(fechaNueva);
+        usuarioActual.getRecomendacionesDiarias().clear();
+
+        for (Metrica metrica : usuarioActual.getMetricasDiarias()) {
+            metrica.normalizarDatos();
+            // Guardar copia de la métrica en el registro del día
+            registro.getMetricasDiarias().add(metrica.clonar());
+            // Generar recomendaciones basadas en esa métrica
+            ArrayList<Recomendacion> recs = metrica.generarRecomendaciones();
+            usuarioActual.getRecomendacionesDiarias().addAll(recs);
+        }
+        usuarioActual.getHistorial().add(registro);
     }
     /**
      * Metodo que muestra la información de las referencias de las 3 métricas medibles del sistema
@@ -72,12 +130,37 @@ public class Control {
      * @throws MiExcepcion
      */
     public String mostrarReferenciasMetricas() {
-        ArrayList<String> datosMetricas = new ArrayList<String>();
-        datosMetricas.add(CantKilometros.obtenerDescripcion());
-        datosMetricas.add(RitmoCardiaco.obtenerDescripcion());
-        datosMetricas.add(HorasSuenno.obtenerDescripcion());
-        return String.join("\n", datosMetricas);
+        StringBuilder metricasDatos = new StringBuilder();
+        metricasDatos.append(CantKilometros.obtenerDescripcion()).append("\n");
+        metricasDatos.append(RitmoCardiaco.obtenerDescripcion()).append("\n");
+        metricasDatos.append(HorasSuenno.obtenerDescripcion());
+        return metricasDatos.toString();
     }
+    /**
+     * Metodo que crea las metas prediseñadas y las crea con sus parametros
+     * @return
+     */
+    public ArrayList<Meta> obtenerMetasPredeterminadas() {
+        ArrayList<Meta> metas = new ArrayList<>();
+        metas.add(new Meta("Caminar 5 km al día", 5, new CantKilometros()));
+        metas.add(new Meta("Dormir 8 horas", 8, new HorasSuenno()));
+        metas.add(new Meta("Llegar a 100 latidos en ejercicio",100, new RitmoCardiaco());
+        return metas;
+    }
+
+    public void asignarMetaAUsuario(int indiceMeta) throws MiExcepcion {
+        Usuario u = gestorUsuarios.getUsuarioActual();
+        ArrayList<Meta> pred = obtenerMetasPredeterminadas();
+
+        if (indiceMeta < 0 || indiceMeta >= pred.size()) {
+            throw new MiExcepcion("Índice de meta inválido");
+        }
+
+        Meta elegida = pred.get(indiceMeta);
+        u.agregarMeta(elegida);
+    }
+
+
     /**
      * Metodo que obtiene el ultimo registro de metricas realizado por la aplicación.
      * @return : Retorna un atributo RegistroMetricas si encuentra el registro, si no lanza una excepción.

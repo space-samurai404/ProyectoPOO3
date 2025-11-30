@@ -1,9 +1,12 @@
 package com.mycompany.proyectopoo3.Modelo.User_Meta_Recom_RegMet;
 import com.mycompany.proyectopoo3.Modelo.Metricas.Metrica;
+
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Objects;
 
-public class RegistroMetricas {
+public class RegistroMetricas implements Serializable {
     //Atributos de la clase RegistroMetricas
     private ArrayList<Metrica> metricasDiarias;
     private LocalDate fecha;
@@ -33,5 +36,15 @@ public class RegistroMetricas {
                 "metricasDiarias=" + metricasDiarias +
                 ", fecha=" + fecha +
                 '}';
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        RegistroMetricas that = (RegistroMetricas) o;
+        return Objects.equals(metricasDiarias, that.metricasDiarias) && Objects.equals(fecha, that.fecha);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(metricasDiarias, fecha);
     }
 }

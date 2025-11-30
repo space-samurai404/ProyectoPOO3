@@ -15,9 +15,19 @@ public class RitmoCardiaco extends Metrica {
     public RitmoCardiaco(String id) {
         this.id = id;
     }
+
     //--Métodos especiales
     public static String obtenerDescripcion() {
         return "Ritmo cardiaco: " + VALOR_MIN + " - " + VALOR_MAX;
+    }
+    @Override
+    public Metrica clonar() {
+        RitmoCardiaco copia = new RitmoCardiaco(this.id);
+        return copia;
+    }
+    @Override
+    public void normalizarDatos() {
+        valorActual = (valorActual - VALOR_MIN) / (VALOR_MAX - VALOR_MAX);
     }
     @Override
     public ArrayList<Recomendacion> generarRecomendaciones() {
@@ -28,4 +38,5 @@ public class RitmoCardiaco extends Metrica {
             rec.add(new Recomendacion(id, "Ritmo cardiaco muy alto."));
         return rec;
     }
+
 }

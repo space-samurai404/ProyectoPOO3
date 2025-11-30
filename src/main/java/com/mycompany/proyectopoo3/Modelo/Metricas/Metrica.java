@@ -8,11 +8,13 @@ public abstract class Metrica implements IRecomendaciones {
     protected double valorActual;
 
     //Métodos de la clase Metrica
-    //--Constructores y setters-getters
+    //--Constructores
     public Metrica() {}
     public Metrica(String id) {
         this.id = id;
     }
+
+    //--Getters y setters
     public String getId() {
         return id;
     }
@@ -25,6 +27,8 @@ public abstract class Metrica implements IRecomendaciones {
     public void setValorActual(double valorActual) {
         this.valorActual = valorActual;
     }
-    //--Métodos especiales
 
+    //--Métodos especiales
+    public abstract Metrica clonar();
+    public abstract void normalizarDatos();
 }

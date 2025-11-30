@@ -15,12 +15,20 @@ public class CantKilometros extends Metrica {
     public CantKilometros(String id) {
         this.id = id;
     }
+
     //--Métodos especiales
     public static String obtenerDescripcion() {
         return "Cantidad de kilometros: " + VALOR_MIN + " - " + VALOR_MAX;
     }
-
-
+    @Override
+    public Metrica clonar() {
+        CantKilometros copia = new CantKilometros(this.id);
+        return copia;
+    }
+    @Override
+    public void normalizarDatos() {
+        valorActual = (valorActual - VALOR_MIN) / (VALOR_MAX - VALOR_MAX);
+    }
     @Override
     public ArrayList<Recomendacion> generarRecomendaciones() {
         ArrayList<Recomendacion> rec = new ArrayList<Recomendacion>();
@@ -30,4 +38,5 @@ public class CantKilometros extends Metrica {
             rec.add(new Recomendacion(id, "Muchos kilometros recorridos."));
         return rec;
     }
+
 }

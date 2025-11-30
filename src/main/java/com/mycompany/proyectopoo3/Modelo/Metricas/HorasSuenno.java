@@ -15,11 +15,20 @@ public class HorasSuenno extends Metrica {
     public HorasSuenno(String id) {
         this.id = id;
     }
+
     //--Métodos especiales
     public static String obtenerDescripcion() {
         return "Horas de sueño: " + VALOR_MIN + " - " + VALOR_MAX;
     }
-
+    @Override
+    public Metrica clonar() {
+        HorasSuenno copia = new HorasSuenno(this.id);
+        return copia;
+    }
+    @Override
+    public void normalizarDatos() {
+        valorActual = (valorActual - VALOR_MIN) / (VALOR_MAX - VALOR_MAX);
+    }
     @Override
     public ArrayList<Recomendacion> generarRecomendaciones() {
         ArrayList<Recomendacion> rec = new ArrayList<Recomendacion>();

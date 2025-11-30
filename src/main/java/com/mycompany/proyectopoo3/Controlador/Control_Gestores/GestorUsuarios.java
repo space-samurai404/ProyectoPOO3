@@ -8,10 +8,12 @@ public class GestorUsuarios {
     private Usuario usuarioActual;
 
     //Métodos de la clase GestorUsuarios
-    //--Constructor y getters-setters
+    //--Constructor
     public GestorUsuarios() {
         listaUsuarios = new ArrayList<Usuario>();
     }
+
+    //--Getters y setters
     public ArrayList<Usuario> getListaUsuarios() {
         return listaUsuarios;
     }
@@ -20,6 +22,7 @@ public class GestorUsuarios {
     }
     public Usuario getUsuarioActual() {return usuarioActual;}
     public void setUsuarioActual(Usuario usuarioActual) {this.usuarioActual = usuarioActual;}
+
     //--Métodos especiales
     /**
      * Metodo que verifica si existe un nombre, contrasenna o correo en el registro de usuarios.
@@ -30,22 +33,25 @@ public class GestorUsuarios {
     public boolean verificarDatos(String aVerificar, int codigo) {
         if (codigo == 1) {
             for (Usuario usuario : listaUsuarios) {
-                if (usuario.getNombre() == aVerificar)
+                if (usuario.getNombre().equals(aVerificar)) {
                     return true;
+                }
             }
             return false;
         }
-        if (codigo == 2) {
+        else if (codigo == 2) {
             for (Usuario usuario : listaUsuarios) {
-                if (usuario.getContrasenna() == aVerificar)
+                if (usuario.getContrasenna().equals(aVerificar)) {
                     return true;
+                }
             }
             return false;
         }
         else {
             for (Usuario usuario : listaUsuarios) {
-                if (usuario.getCorreo() == aVerificar && aVerificar.contains("@gmail,com"))
+                if (usuario.getCorreo().equals(aVerificar)) {
                     return true;
+                }
             }
             return false;
         }

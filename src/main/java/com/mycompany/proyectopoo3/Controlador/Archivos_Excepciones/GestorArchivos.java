@@ -24,7 +24,7 @@ public class GestorArchivos {
      * @return: Retorna un atributo int, que representa un codigo de éxito de la interfaz ICodigos.
      * @throws MiExcepcion
      */
-    public int guardarUsuarios(String nombreArchivo, ArrayList<Usuario> listaUsuarios) throws MiExcepcion {
+    public int guardarUsuarios(String nombreArchivo) throws MiExcepcion {
         FileOutputStream archivoEscritura = null;
         ObjectOutputStream manejadorEscritura = null;
         try {

@@ -1,10 +1,13 @@
 package com.mycompany.proyectopoo3.Modelo.User_Meta_Recom_RegMet;
 import com.mycompany.proyectopoo3.Modelo.Metricas.Metrica;
+import java.io.Serializable;
+import java.util.Objects;
 
-public class Meta {
+public class Meta implements Serializable {
     //Atributos de la clase Meta
     private String descripcion;
     private double porcentaje;
+    private double meta;
     private Metrica metricaAsignada;
 
     //Métodos de la clase Meta
@@ -29,12 +32,32 @@ public class Meta {
     public void setMetricaAsignada(Metrica metricaCorrespondiente) {
         this.metricaAsignada = metricaCorrespondiente;
     }
+    public double getMeta() {return meta;}
+    public void setMeta(double meta) {this.meta = meta;}
+    public void actualizarMeta() {
+        if (metricaAsignada != null) {
+            double progreso = metricaAsignada.getValorActual() / meta;
+            if (progreso > 1.0) progreso = 1.0; // máximo 100%
+            this.meta = progreso * 100;
+        }
+    }
     @Override
     public String toString() {
         return "Meta{" +
                 "descripcion='" + descripcion + '\'' +
                 ", porcentaje=" + porcentaje +
+                ", meta=" + meta +
                 ", metricaAsignada=" + metricaAsignada +
                 '}';
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Meta meta1 = (Meta) o;
+        return Double.compare(porcentaje, meta1.porcentaje) == 0 && Double.compare(meta, meta1.meta) == 0 && Objects.equals(descripcion, meta1.descripcion) && Objects.equals(metricaAsignada, meta1.metricaAsignada);
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash(descripcion, porcentaje, meta, metricaAsignada);
     }
 }
