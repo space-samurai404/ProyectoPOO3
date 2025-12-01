@@ -15,7 +15,9 @@ public class HorasSuenno extends Metrica {
     public HorasSuenno(String id) {
         this.id = id;
     }
-
+    
+    
+    
     //--Métodos especiales
     public static String obtenerDescripcion() {
         return "Horas de sueño: " + VALOR_MIN + " - " + VALOR_MAX;

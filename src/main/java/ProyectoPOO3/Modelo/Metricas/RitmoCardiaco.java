@@ -15,7 +15,9 @@ public class RitmoCardiaco extends Metrica {
     public RitmoCardiaco(String id) {
         this.id = id;
     }
-
+    
+    
+    
     //--Métodos especiales
     public static String obtenerDescripcion() {
         return "Ritmo cardiaco: " + VALOR_MIN + " - " + VALOR_MAX;

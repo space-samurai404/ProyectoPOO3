@@ -15,6 +15,8 @@ public class CantKilometros extends Metrica {
     public CantKilometros(String id) {
         this.id = id;
     }
+    
+    
 
     //--Métodos especiales
     public static String obtenerDescripcion() {

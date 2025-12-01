@@ -255,22 +255,34 @@ public class Control {
      * Metodo que muestra el historial de registroMetricas del usuario
      * @return : Retorna un String que es el historial generado.
      */
-    public String Simulacion() {
-        Usuario usuarioActual = gestorUsuarios.getUsuarioActual();
-        StringBuilder historial = new StringBuilder();
-        for (RegistroMetricas registro : usuarioActual.getHistorial()) {
-            historial.append("Fecha: ").append(registro.getFecha()).append("\n");
-            for (Metrica metrica : registro.getMetricasDiarias()) {
-                historial.append("  - ")
-                        .append(metrica.getId())
-                        .append(": ")
-                        .append(metrica.getValorActual())
-                        .append("\n");
-            }
-
-            historial.append("\n");
+    public int Simulacion(int caso) {
+        double min = 0;
+        double max = 0;
+        double numero = 0;
+        
+        switch (caso){
+                case 1:
+                    //RitmoCardiaco corazon = new RitmoCardiaco();                   
+                    min = 50;
+                    max = 100;
+                    numero = (int)(Math.random() * (max - min + 1)) + min;
+                    break;
+                    
+                case 2:
+                    //RitmoCardiaco corazon = new RitmoCardiaco();                    
+                    min = 6;
+                    max = 9;
+                    numero = (int)(Math.random() * (max - min + 1)) + min;
+                    break;
+                    
+                case 3:
+                    //RitmoCardiaco corazon = new RitmoCardiaco();                    
+                    min = 0;
+                    max = 10000;
+                    numero = (int)(Math.random() * (max - min + 1)) + min;
+                    break;
         }
-        return historial.toString();
+        return (int)numero;
     }
 
 

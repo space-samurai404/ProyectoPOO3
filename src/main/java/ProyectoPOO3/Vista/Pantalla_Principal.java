@@ -23,6 +23,11 @@ public class Pantalla_Principal extends javax.swing.JFrame {
     private Control controlador;
     private PanelDibujo graficoPasos;
     private PanelDibujo graficoSuenno;
+    private List valoresCardio;
+    private List valoresSuenno;
+    private List valoresPasos;
+    private Timer timer;
+   
     /**
      * Creates new form Registro_Login
      */
@@ -30,6 +35,10 @@ public class Pantalla_Principal extends javax.swing.JFrame {
         initComponents();
         this.controlador=controlador;
         
+        valoresCardio = new ArrayList<>();
+        valoresSuenno = new ArrayList<>();
+        valoresPasos = new ArrayList<>();
+        
         graficoPasos = new PanelDibujo();
         graficoSuenno = new PanelDibujo();
         
@@ -47,12 +56,28 @@ public class Pantalla_Principal extends javax.swing.JFrame {
         ArrayList<Meta> metas = controlador.obtenerMetasPredeterminadas();
         cbo_metas.setModel(new DefaultComboBoxModel<>(metas.toArray(new Meta[0])));
         
+        timer = new Timer(10000, e-> {
+        
+        valoresCardio.add(controlador.Simulacion(1));
+        lbl_bpm.setText(Double.toString(controlador.Simulacion(1)));
+        valoresSuenno.add(controlador.Simulacion(2));
+        valoresPasos.add(controlador.Simulacion(3));
+ 
+        graficoSuenno.setValores(valoresSuenno);
+        graficoPasos.setValores(valoresPasos);
+        
+        graficoPasos.repaint();
+        graficoSuenno.repaint();
+        
+
+    });
 
         
     }
     
     public Pantalla_Principal() {
         initComponents();
+        
         this.controlador=controlador;
         
         graficoPasos = new PanelDibujo();
@@ -72,8 +97,20 @@ public class Pantalla_Principal extends javax.swing.JFrame {
         ArrayList<Meta> metas = controlador.obtenerMetasPredeterminadas();
         cbo_metas.setModel(new DefaultComboBoxModel<>(metas.toArray(new Meta[0])));
         
+        timer = new Timer(10000, e -> {
+        valoresCardio.add(controlador.Simulacion(1));
+        lbl_bpm.setText(Double.toString(controlador.Simulacion(1)));
 
-        
+        valoresSuenno.add(controlador.Simulacion(2));
+        valoresPasos.add(controlador.Simulacion(3));
+
+        graficoSuenno.setValores(valoresSuenno);
+        graficoPasos.setValores(valoresPasos);
+
+        graficoPasos.repaint();
+        graficoSuenno.repaint();
+    });
+ 
     }
     
     
@@ -91,7 +128,7 @@ public class Pantalla_Principal extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         canvas1 = new java.awt.Canvas();
-        jLabel9 = new javax.swing.JLabel();
+        lbl_bpm = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -125,6 +162,9 @@ public class Pantalla_Principal extends javax.swing.JFrame {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
             }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
         });
 
         jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -139,9 +179,9 @@ public class Pantalla_Principal extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(153, 153, 153));
         jLabel8.setText("Ritmo Cárdiaco");
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel9.setText("000");
+        lbl_bpm.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        lbl_bpm.setForeground(new java.awt.Color(153, 153, 153));
+        lbl_bpm.setText("000");
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(153, 153, 153));
@@ -216,7 +256,7 @@ public class Pantalla_Principal extends javax.swing.JFrame {
                         .addComponent(canvas1, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btn_consultarHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel9)
+                        .addComponent(lbl_bpm)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -235,7 +275,7 @@ public class Pantalla_Principal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel9)
+                        .addComponent(lbl_bpm)
                         .addComponent(jLabel10)
                         .addComponent(jLabel11))
                     .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -404,8 +444,9 @@ public class Pantalla_Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
-         List<Integer> datosPasos = List.of(3500, 5600, 4200, 7800, 9000);
-         graficoPasos.setValores(datosPasos);
+         
+        timer.start();
+      
 
     }//GEN-LAST:event_jTabbedPane1MouseClicked
 
@@ -437,6 +478,10 @@ public class Pantalla_Principal extends javax.swing.JFrame {
         this.setVisible(false);
         new Historial(controlador).setVisible(true);
     }//GEN-LAST:event_btn_consultarHistorialActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        timer.start();
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -492,7 +537,6 @@ public class Pantalla_Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -504,6 +548,7 @@ public class Pantalla_Principal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JLabel lbl_bpm;
     private javax.swing.JLabel lbl_recomendaciones;
     private javax.swing.JPanel pnl_graphicsCantPasos;
     private javax.swing.JPanel pnl_graphicsCanthoras;
