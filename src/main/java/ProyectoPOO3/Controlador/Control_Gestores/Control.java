@@ -250,6 +250,28 @@ public class Control {
         }
         return historial.toString();
     }
+    
+    /**
+     * Metodo que muestra el historial de registroMetricas del usuario
+     * @return : Retorna un String que es el historial generado.
+     */
+    public String Simulacion() {
+        Usuario usuarioActual = gestorUsuarios.getUsuarioActual();
+        StringBuilder historial = new StringBuilder();
+        for (RegistroMetricas registro : usuarioActual.getHistorial()) {
+            historial.append("Fecha: ").append(registro.getFecha()).append("\n");
+            for (Metrica metrica : registro.getMetricasDiarias()) {
+                historial.append("  - ")
+                        .append(metrica.getId())
+                        .append(": ")
+                        .append(metrica.getValorActual())
+                        .append("\n");
+            }
+
+            historial.append("\n");
+        }
+        return historial.toString();
+    }
 
 
 }

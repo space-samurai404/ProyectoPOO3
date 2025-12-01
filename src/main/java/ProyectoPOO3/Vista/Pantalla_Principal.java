@@ -97,7 +97,7 @@ public class Pantalla_Principal extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        btn_RegistrarCont = new javax.swing.JButton();
+        btn_consultarHistorial = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
         pnl_graphicsCantPasos = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
@@ -121,6 +121,11 @@ public class Pantalla_Principal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(341, 627));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -155,9 +160,14 @@ public class Pantalla_Principal extends javax.swing.JFrame {
         jLabel14.setForeground(new java.awt.Color(153, 153, 153));
         jLabel14.setText("Horas de sueño");
 
-        btn_RegistrarCont.setBackground(new java.awt.Color(0, 0, 0));
-        btn_RegistrarCont.setForeground(new java.awt.Color(255, 255, 255));
-        btn_RegistrarCont.setText("Consultar historial de metricas");
+        btn_consultarHistorial.setBackground(new java.awt.Color(0, 0, 0));
+        btn_consultarHistorial.setForeground(new java.awt.Color(255, 255, 255));
+        btn_consultarHistorial.setText("Consultar historial de metricas");
+        btn_consultarHistorial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_consultarHistorialActionPerformed(evt);
+            }
+        });
 
         pnl_graphicsCantPasos.setMinimumSize(new java.awt.Dimension(300, 150));
         pnl_graphicsCantPasos.setPreferredSize(new java.awt.Dimension(200, 200));
@@ -204,7 +214,7 @@ public class Pantalla_Principal extends javax.swing.JFrame {
                         .addComponent(jLabel13)
                         .addGap(55, 55, 55)
                         .addComponent(canvas1, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btn_RegistrarCont, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_consultarHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -244,7 +254,7 @@ public class Pantalla_Principal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btn_RegistrarCont, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_consultarHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(97, 97, 97))
         );
 
@@ -415,6 +425,19 @@ public class Pantalla_Principal extends javax.swing.JFrame {
         controlador.exportarReporteParaProfesional();
     }//GEN-LAST:event_btn_compartirInfoActionPerformed
 
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        try{
+            controlador.guardarUsuarios();
+        }catch(MiExcepcion e){
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_formWindowClosed
+
+    private void btn_consultarHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_consultarHistorialActionPerformed
+        this.setVisible(false);
+        new Historial(controlador).setVisible(true);
+    }//GEN-LAST:event_btn_consultarHistorialActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -454,8 +477,8 @@ public class Pantalla_Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_RegistrarCont;
     private javax.swing.JButton btn_compartirInfo;
+    private javax.swing.JButton btn_consultarHistorial;
     private javax.swing.JButton btn_guardarConfig;
     private java.awt.Canvas canvas1;
     private javax.swing.JComboBox<Meta> cbo_metas;

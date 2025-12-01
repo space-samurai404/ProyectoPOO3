@@ -3,18 +3,29 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package ProyectoPOO3.Vista;
-
+import ProyectoPOO3.Controlador.Control_Gestores.Control;
+import ProyectoPOO3.Controlador.Archivos_Excepciones.*;
+import ProyectoPOO3.Controlador.Control_Gestores.*;
+import ProyectoPOO3.Modelo.Wearables.*;
+import ProyectoPOO3.Modelo.Metricas.*;
+import ProyectoPOO3.Modelo.User_Meta_Recom_RegMet.*;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 /**
  *
  * @author paula
  */
 public class Historial extends javax.swing.JFrame {
-
+    private Control controlador;
     /**
      * Creates new form Historial
      */
     public Historial() {
         initComponents();
+    }
+    public Historial(Control controlador) {
+        initComponents();
+        this.controlador = controlador;
     }
 
     /**
@@ -28,7 +39,7 @@ public class Historial extends javax.swing.JFrame {
 
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        lbl_Regresar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -37,8 +48,13 @@ public class Historial extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setText("Consultar historial de métricas");
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/klipartz.com.png"))); // NOI18N
-        jLabel2.setText("     ");
+        lbl_Regresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/klipartz.com.png"))); // NOI18N
+        lbl_Regresar.setText("     ");
+        lbl_Regresar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbl_RegresarMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -46,7 +62,7 @@ public class Historial extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2)
+                .addComponent(lbl_Regresar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(81, 81, 81))
@@ -56,7 +72,7 @@ public class Historial extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2)
+                    .addComponent(lbl_Regresar)
                     .addComponent(jLabel1))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
@@ -76,6 +92,11 @@ public class Historial extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void lbl_RegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_RegresarMouseClicked
+        this.setVisible(false);
+        new Pantalla_Principal(controlador).setVisible(true);
+    }//GEN-LAST:event_lbl_RegresarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -114,7 +135,7 @@ public class Historial extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lbl_Regresar;
     // End of variables declaration//GEN-END:variables
 }

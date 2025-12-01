@@ -41,6 +41,11 @@ public class Registro_Login extends javax.swing.JFrame {
         btn_Registrarse = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel1.setText("Iniciar Sesión o Registrarse");
@@ -120,6 +125,14 @@ public class Registro_Login extends javax.swing.JFrame {
        this.setVisible(false);
        new Registro_Usuario(controlador).setVisible(true);
     }//GEN-LAST:event_btn_RegistrarseActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        try{
+            controlador.cargarUsuario();
+        }catch(MiExcepcion e){
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments

@@ -10,6 +10,7 @@ import ProyectoPOO3.Modelo.Wearables.*;
 import ProyectoPOO3.Modelo.Metricas.*;
 import ProyectoPOO3.Modelo.User_Meta_Recom_RegMet.*;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -127,9 +128,15 @@ public class IniciarSesion_Usuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_IniciarSesionContActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_IniciarSesionContActionPerformed
+        
+        try{
         controlador.iniciarSesion(txt_nombreUsuarioConsulta.getText(), txt_ContraseñaUsuarioConsulta.getText());
         this.setVisible(false);
         new Pantalla_Principal(controlador).setVisible(true);
+        } catch (MiExcepcion e){
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+            
     }//GEN-LAST:event_btn_IniciarSesionContActionPerformed
 
     /**
