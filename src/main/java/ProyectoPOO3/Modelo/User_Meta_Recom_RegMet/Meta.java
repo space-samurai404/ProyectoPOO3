@@ -59,12 +59,16 @@ public class Meta implements Serializable {
                 ", metricaAsignada=" + metricaAsignada +
                 '}';
     }
+    
+    
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Meta meta1 = (Meta) o;
         return Double.compare(porcentaje, meta1.porcentaje) == 0 && Double.compare(meta, meta1.meta) == 0 && Objects.equals(descripcion, meta1.descripcion) && Objects.equals(metricaAsignada, meta1.metricaAsignada);
     }
+    
+    
     @Override
     public int hashCode() {
         return Objects.hash(descripcion, porcentaje, meta, metricaAsignada);

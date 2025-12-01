@@ -3,20 +3,80 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package ProyectoPOO3.Vista;
-
+import java.awt.*;
+import javax.swing.*;
+import ProyectoPOO3.Controlador.Control_Gestores.Control;
+import ProyectoPOO3.Modelo.Wearables.TipoWearable;
+import ProyectoPOO3.Controlador.Control_Gestores.Control;
+import ProyectoPOO3.Controlador.Archivos_Excepciones.*;
+import ProyectoPOO3.Controlador.Control_Gestores.*;
+import ProyectoPOO3.Modelo.Wearables.*;
+import ProyectoPOO3.Modelo.Metricas.*;
+import ProyectoPOO3.Modelo.User_Meta_Recom_RegMet.*;
+import java.util.ArrayList;
+import java.util.List;
 /**
  *
  * @author paula
  */
 public class Pantalla_Principal extends javax.swing.JFrame {
-
+    private Control controlador;
+    private PanelDibujo graficoPasos;
+    private PanelDibujo graficoSuenno;
     /**
      * Creates new form Registro_Login
      */
+    public Pantalla_Principal(Control controlador) {
+        initComponents();
+        this.controlador=controlador;
+        
+        graficoPasos = new PanelDibujo();
+        graficoSuenno = new PanelDibujo();
+        
+        //Pasos
+        pnl_graphicsCantPasos.setLayout(new BorderLayout());
+        pnl_graphicsCantPasos.add(graficoPasos, BorderLayout.CENTER);
+        
+        //Horas de suenno
+        pnl_graphicsCanthoras.setLayout(new BorderLayout());
+        pnl_graphicsCanthoras.add(graficoSuenno, BorderLayout.CENTER);
+        
+        revalidate();
+        repaint();
+        
+        ArrayList<Meta> metas = controlador.obtenerMetasPredeterminadas();
+        cbo_metas.setModel(new DefaultComboBoxModel<>(metas.toArray(new Meta[0])));
+        
+
+        
+    }
+    
     public Pantalla_Principal() {
         initComponents();
-    }
+        this.controlador=controlador;
+        
+        graficoPasos = new PanelDibujo();
+        graficoSuenno = new PanelDibujo();
+        
+        //Pasos
+        pnl_graphicsCantPasos.setLayout(new BorderLayout());
+        pnl_graphicsCantPasos.add(graficoPasos, BorderLayout.CENTER);
+        
+        //Horas de suenno
+        pnl_graphicsCanthoras.setLayout(new BorderLayout());
+        pnl_graphicsCanthoras.add(graficoSuenno, BorderLayout.CENTER);
+        
+        revalidate();
+        repaint();
+        
+        ArrayList<Meta> metas = controlador.obtenerMetasPredeterminadas();
+        cbo_metas.setModel(new DefaultComboBoxModel<>(metas.toArray(new Meta[0])));
+        
 
+        
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,7 +91,6 @@ public class Pantalla_Principal extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         canvas1 = new java.awt.Canvas();
-        canvas3 = new java.awt.Canvas();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -39,18 +98,18 @@ public class Pantalla_Principal extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         btn_RegistrarCont = new javax.swing.JButton();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        pnl_graphicsCantPasos = new javax.swing.JPanel();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        pnl_graphicsCanthoras = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jPanel2 = new javax.swing.JPanel();
         btn_compartirInfo = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        lbl_horasSuenno = new javax.swing.JLabel();
-        lbl_RitmoCardiaco = new javax.swing.JLabel();
-        lbl_pasos = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         lbl_recomendaciones = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        txt_reporte = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -62,6 +121,14 @@ public class Pantalla_Principal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(341, 627));
+
+        jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedPane1MouseClicked(evt);
+            }
+        });
+
+        jPanel3.setPreferredSize(new java.awt.Dimension(349, 627));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(153, 153, 153));
@@ -92,6 +159,38 @@ public class Pantalla_Principal extends javax.swing.JFrame {
         btn_RegistrarCont.setForeground(new java.awt.Color(255, 255, 255));
         btn_RegistrarCont.setText("Consultar historial de metricas");
 
+        pnl_graphicsCantPasos.setMinimumSize(new java.awt.Dimension(300, 150));
+        pnl_graphicsCantPasos.setPreferredSize(new java.awt.Dimension(200, 200));
+
+        javax.swing.GroupLayout pnl_graphicsCantPasosLayout = new javax.swing.GroupLayout(pnl_graphicsCantPasos);
+        pnl_graphicsCantPasos.setLayout(pnl_graphicsCantPasosLayout);
+        pnl_graphicsCantPasosLayout.setHorizontalGroup(
+            pnl_graphicsCantPasosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 308, Short.MAX_VALUE)
+        );
+        pnl_graphicsCantPasosLayout.setVerticalGroup(
+            pnl_graphicsCantPasosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 200, Short.MAX_VALUE)
+        );
+
+        jScrollPane6.setViewportView(pnl_graphicsCantPasos);
+
+        pnl_graphicsCanthoras.setMinimumSize(new java.awt.Dimension(300, 150));
+        pnl_graphicsCanthoras.setPreferredSize(new java.awt.Dimension(200, 200));
+
+        javax.swing.GroupLayout pnl_graphicsCanthorasLayout = new javax.swing.GroupLayout(pnl_graphicsCanthoras);
+        pnl_graphicsCanthoras.setLayout(pnl_graphicsCanthorasLayout);
+        pnl_graphicsCanthorasLayout.setHorizontalGroup(
+            pnl_graphicsCanthorasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 308, Short.MAX_VALUE)
+        );
+        pnl_graphicsCanthorasLayout.setVerticalGroup(
+            pnl_graphicsCanthorasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 200, Short.MAX_VALUE)
+        );
+
+        jScrollPane7.setViewportView(pnl_graphicsCanthoras);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -99,24 +198,24 @@ public class Pantalla_Principal extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel14)
-                            .addComponent(jLabel13)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel10)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel11))
-                            .addComponent(jLabel8)
-                            .addComponent(canvas1, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(canvas3, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(btn_RegistrarCont, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                        .addComponent(jLabel13)
+                        .addGap(55, 55, 55)
+                        .addComponent(canvas1, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btn_RegistrarCont, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel11))
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel14))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,16 +230,22 @@ public class Pantalla_Principal extends javax.swing.JFrame {
                         .addComponent(jLabel11))
                     .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32)
-                .addComponent(jLabel13)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(canvas1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21)
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(canvas3, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(canvas1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btn_RegistrarCont, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addGap(97, 97, 97))
         );
 
         jScrollPane1.setViewportView(jPanel3);
@@ -150,28 +255,15 @@ public class Pantalla_Principal extends javax.swing.JFrame {
         btn_compartirInfo.setBackground(new java.awt.Color(0, 0, 0));
         btn_compartirInfo.setForeground(new java.awt.Color(255, 255, 255));
         btn_compartirInfo.setText("Compartir información con profesional");
+        btn_compartirInfo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_compartirInfoActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(153, 153, 153));
         jLabel3.setText("Reporte consolidado");
-
-        jLabel4.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel4.setText("Horas de sueño promedio:");
-
-        jLabel5.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel5.setText("Ritmo cárdiaco promedio:");
-
-        jLabel6.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel6.setText("<html>Cantidad de pasos promedio <br>tomados por semana:<html>");
-
-        lbl_horasSuenno.setForeground(new java.awt.Color(51, 51, 51));
-        lbl_horasSuenno.setText("0");
-
-        lbl_RitmoCardiaco.setForeground(new java.awt.Color(51, 51, 51));
-        lbl_RitmoCardiaco.setText("0");
-
-        lbl_pasos.setForeground(new java.awt.Color(51, 51, 51));
-        lbl_pasos.setText("0");
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(153, 153, 153));
@@ -179,6 +271,10 @@ public class Pantalla_Principal extends javax.swing.JFrame {
 
         lbl_recomendaciones.setForeground(new java.awt.Color(51, 51, 51));
         lbl_recomendaciones.setText("<html>Cantidad de pasos promedio <br>tomados por semana:<html>");
+
+        txt_reporte.setColumns(20);
+        txt_reporte.setRows(5);
+        jScrollPane5.setViewportView(txt_reporte);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -191,20 +287,9 @@ public class Pantalla_Principal extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl_recomendaciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lbl_pasos, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lbl_RitmoCardiaco))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lbl_horasSuenno))
                     .addComponent(jLabel3))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -215,19 +300,9 @@ public class Pantalla_Principal extends javax.swing.JFrame {
                 .addComponent(btn_compartirInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(lbl_horasSuenno))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(lbl_RitmoCardiaco))
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl_pasos))
-                .addGap(44, 44, 44)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lbl_recomendaciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -241,8 +316,6 @@ public class Pantalla_Principal extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(153, 153, 153));
         jLabel1.setText("Agregar meta");
-
-        cbo_metas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Caminar más", "Regular mis latidos por minuto", "Dormir regularmente" }));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(153, 153, 153));
@@ -263,6 +336,11 @@ public class Pantalla_Principal extends javax.swing.JFrame {
         btn_guardarConfig.setBackground(new java.awt.Color(0, 0, 0));
         btn_guardarConfig.setForeground(new java.awt.Color(255, 255, 255));
         btn_guardarConfig.setText("Guardar");
+        btn_guardarConfig.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_guardarConfigActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -315,6 +393,28 @@ public class Pantalla_Principal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
+         List<Integer> datosPasos = List.of(3500, 5600, 4200, 7800, 9000);
+         graficoPasos.setValores(datosPasos);
+
+    }//GEN-LAST:event_jTabbedPane1MouseClicked
+
+    private void btn_guardarConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarConfigActionPerformed
+        if (cbo_metas.getSelectedIndex()== 0){
+            controlador.asignarMeta(0);
+        }else if (cbo_metas.getSelectedIndex()== 1){
+            controlador.asignarMeta(1);
+        }else if (cbo_metas.getSelectedIndex()== 2){
+            controlador.asignarMeta(2);
+        }
+        
+        //
+    }//GEN-LAST:event_btn_guardarConfigActionPerformed
+
+    private void btn_compartirInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_compartirInfoActionPerformed
+        controlador.exportarReporteParaProfesional();
+    }//GEN-LAST:event_btn_compartirInfoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -358,8 +458,7 @@ public class Pantalla_Principal extends javax.swing.JFrame {
     private javax.swing.JButton btn_compartirInfo;
     private javax.swing.JButton btn_guardarConfig;
     private java.awt.Canvas canvas1;
-    private java.awt.Canvas canvas3;
-    private javax.swing.JComboBox<String> cbo_metas;
+    private javax.swing.JComboBox<Meta> cbo_metas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -368,9 +467,6 @@ public class Pantalla_Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -381,11 +477,14 @@ public class Pantalla_Principal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JLabel lbl_RitmoCardiaco;
-    private javax.swing.JLabel lbl_horasSuenno;
-    private javax.swing.JLabel lbl_pasos;
     private javax.swing.JLabel lbl_recomendaciones;
+    private javax.swing.JPanel pnl_graphicsCantPasos;
+    private javax.swing.JPanel pnl_graphicsCanthoras;
     private javax.swing.JTable tab_Referencias;
+    private javax.swing.JTextArea txt_reporte;
     // End of variables declaration//GEN-END:variables
 }

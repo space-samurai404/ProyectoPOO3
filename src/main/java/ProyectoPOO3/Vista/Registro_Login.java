@@ -4,17 +4,26 @@
  */
 package ProyectoPOO3.Vista;
 
+import ProyectoPOO3.Controlador.Control_Gestores.Control;
+import javax.swing.JOptionPane;
+import ProyectoPOO3.Controlador.Archivos_Excepciones.*;
+
 /**
  *
  * @author paula
  */
 public class Registro_Login extends javax.swing.JFrame {
-
+    private Control controlador;
     /**
      * Creates new form Registro_Login
      */
     public Registro_Login() {
         initComponents();
+        try{
+        this.controlador= new Control();
+        }catch(MiExcepcion e){
+            JOptionPane.showMessageDialog(this, "Error cargando el controlador");
+        }
     }
 
     /**
@@ -50,6 +59,11 @@ public class Registro_Login extends javax.swing.JFrame {
         btn_Registrarse.setForeground(new java.awt.Color(255, 255, 255));
         btn_Registrarse.setText("Registrarse");
         btn_Registrarse.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btn_Registrarse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_RegistrarseActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -98,8 +112,14 @@ public class Registro_Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_IniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_IniciarSesionActionPerformed
-        // TODO add your handling code here:
+       this.setVisible(false);
+       new IniciarSesion_Usuario(controlador).setVisible(true);
     }//GEN-LAST:event_btn_IniciarSesionActionPerformed
+
+    private void btn_RegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_RegistrarseActionPerformed
+       this.setVisible(false);
+       new Registro_Usuario(controlador).setVisible(true);
+    }//GEN-LAST:event_btn_RegistrarseActionPerformed
 
     /**
      * @param args the command line arguments

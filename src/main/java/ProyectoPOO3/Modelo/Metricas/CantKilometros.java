@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 public class CantKilometros extends Metrica {
     //Atributos de la clase CantKm_Pasos
-    private final static double VALOR_MIN = 7;
-    private final static double VALOR_MAX = 10;
+    private final static double VALOR_MIN = 3;
+    
 
     //Métodos de la clase CantKm_Pasos
     //--Constructores
@@ -18,7 +18,7 @@ public class CantKilometros extends Metrica {
 
     //--Métodos especiales
     public static String obtenerDescripcion() {
-        return "Cantidad de kilometros: " + VALOR_MIN + " - " + VALOR_MAX;
+        return "Cantidad de kilometros: " + VALOR_MIN ;
     }
     @Override
     public Metrica clonar() {
@@ -27,15 +27,14 @@ public class CantKilometros extends Metrica {
     }
     @Override
     public void normalizarDatos() {
-        valorActual = (valorActual - VALOR_MIN) / (VALOR_MAX - VALOR_MAX);
+        valorActual = (valorActual - VALOR_MIN) / VALOR_MIN;
     }
     @Override
     public ArrayList<Recomendacion> generarRecomendaciones() {
         ArrayList<Recomendacion> rec = new ArrayList<Recomendacion>();
         if (valorActual < VALOR_MIN)
             rec.add(new Recomendacion(id, "Pocos kilometros recorridos."));
-        if (valorActual > VALOR_MAX)
-            rec.add(new Recomendacion(id, "Muchos kilometros recorridos."));
+        
         return rec;
     }
 

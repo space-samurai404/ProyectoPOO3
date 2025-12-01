@@ -5,12 +5,13 @@
 package ProyectoPOO3.Vista;
 import ProyectoPOO3.Controlador.Control_Gestores.Control;
 import ProyectoPOO3.Modelo.Wearables.TipoWearable;
-import com.mycompany.proyectopoo3.Controlador.Archivos_Excepciones.*;
-import com.mycompany.proyectopoo3.Controlador.Control_Gestores.*;
-import com.mycompany.proyectopoo3.Modelo.DispositivosWereables.*;
-import com.mycompany.proyectopoo3.Modelo.Metricas.*;
-import com.mycompany.proyectopoo3.Modelo.User_Meta_Recom_RegMet.*;
-
+import ProyectoPOO3.Controlador.Control_Gestores.Control;
+import ProyectoPOO3.Controlador.Archivos_Excepciones.*;
+import ProyectoPOO3.Controlador.Control_Gestores.*;
+import ProyectoPOO3.Modelo.Wearables.*;
+import ProyectoPOO3.Modelo.Metricas.*;
+import ProyectoPOO3.Modelo.User_Meta_Recom_RegMet.*;
+import java.util.ArrayList;
 /**
  *
  * @author paula
@@ -20,11 +21,18 @@ public class Registro_Usuario extends javax.swing.JFrame {
     /**
      * Creates new form Registro_Login
      */
+    public Registro_Usuario(Control controlador) {
+        initComponents();
+        lst_wearable.setListData(TipoWearable.values());
+        this.controlador=controlador;
+    }
+    
     public Registro_Usuario() {
         initComponents();
         lst_wearable.setListData(TipoWearable.values());
         this.controlador=controlador;
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -144,8 +152,10 @@ public class Registro_Usuario extends javax.swing.JFrame {
     
     
     private void btn_RegistrarContActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_RegistrarContActionPerformed
-        //ArrayList<Wearables> lista = new ArrayList<>(lst_wearable.getSelectedValuesList());
-        //controlador.registrarUsuario(txt_nombreUsuario.getText(), txt_ContraseñaUsuario.getText(), txt_emailUsuario.getText(), lst_wearable.getSelectedValuesList());
+        ArrayList<TipoWearable> lista = new ArrayList<>(lst_wearable.getSelectedValuesList());
+        controlador.registrarUsuario(txt_nombreUsuario.getText(), txt_ContraseñaUsuario.getText(), txt_emailUsuario.getText(), lista);
+        this.setVisible(false);
+        new Pantalla_Principal(controlador).setVisible(true);
     }//GEN-LAST:event_btn_RegistrarContActionPerformed
 
     /**

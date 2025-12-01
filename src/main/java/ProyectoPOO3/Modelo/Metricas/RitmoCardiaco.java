@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class RitmoCardiaco extends Metrica {
     //Atributos de la clase RitmoCardiaco
-    private final static double VALOR_MIN = 60;
+    private final static double VALOR_MIN = 50;
     private final static double VALOR_MAX = 100;
 
     //Métodos de la clase RitmoCardiaco

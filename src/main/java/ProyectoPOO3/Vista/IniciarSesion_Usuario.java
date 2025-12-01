@@ -4,12 +4,12 @@
  */
 package ProyectoPOO3.Vista;
 import ProyectoPOO3.Controlador.Control_Gestores.Control;
-import com.mycompany.proyectopoo3.Controlador.Archivos_Excepciones.*;
-import com.mycompany.proyectopoo3.Controlador.Control_Gestores.*;
-import com.mycompany.proyectopoo3.Modelo.DispositivosWereables.*;
-import com.mycompany.proyectopoo3.Modelo.Metricas.*;
-import com.mycompany.proyectopoo3.Modelo.User_Meta_Recom_RegMet.*;
-
+import ProyectoPOO3.Controlador.Archivos_Excepciones.*;
+import ProyectoPOO3.Controlador.Control_Gestores.*;
+import ProyectoPOO3.Modelo.Wearables.*;
+import ProyectoPOO3.Modelo.Metricas.*;
+import ProyectoPOO3.Modelo.User_Meta_Recom_RegMet.*;
+import java.util.ArrayList;
 
 /**
  *
@@ -21,6 +21,11 @@ public class IniciarSesion_Usuario extends javax.swing.JFrame {
     /**
      * Creates new form Registro_Login
      */
+    public IniciarSesion_Usuario(Control controlador) {
+        initComponents();
+        this.controlador=controlador;
+    }
+    
     public IniciarSesion_Usuario() {
         initComponents();
         this.controlador=controlador;
@@ -123,6 +128,8 @@ public class IniciarSesion_Usuario extends javax.swing.JFrame {
 
     private void btn_IniciarSesionContActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_IniciarSesionContActionPerformed
         controlador.iniciarSesion(txt_nombreUsuarioConsulta.getText(), txt_ContraseñaUsuarioConsulta.getText());
+        this.setVisible(false);
+        new Pantalla_Principal(controlador).setVisible(true);
     }//GEN-LAST:event_btn_IniciarSesionContActionPerformed
 
     /**
