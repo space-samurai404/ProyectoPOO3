@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
  */
 public class IniciarSesion_Usuario extends javax.swing.JFrame {
     private Control controlador;
+    private GestorUsuarios gu;
     
     /**
      * Creates new form Registro_Login
@@ -25,11 +26,15 @@ public class IniciarSesion_Usuario extends javax.swing.JFrame {
     public IniciarSesion_Usuario(Control controlador) {
         initComponents();
         this.controlador=controlador;
+        this.gu = controlador.getGestorUsuarios();
+        System.out.println(gu.getUsuarioActual());
     }
     
     public IniciarSesion_Usuario() {
         initComponents();
+        
         this.controlador=controlador;
+        
     }
 
     /**

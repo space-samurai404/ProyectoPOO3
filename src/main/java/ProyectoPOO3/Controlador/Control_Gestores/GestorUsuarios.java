@@ -1,8 +1,9 @@
 package ProyectoPOO3.Controlador.Control_Gestores;
 import ProyectoPOO3.Modelo.User_Meta_Recom_RegMet.Usuario;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class GestorUsuarios {
+public class GestorUsuarios implements Serializable{
     //Atributos de la clase GestorUsuarios
     private ArrayList<Usuario> listaUsuarios;
     private Usuario usuarioActual;
@@ -20,7 +21,7 @@ public class GestorUsuarios {
     public void setListaUsuarios(ArrayList<Usuario> listaUsuarios) {
         this.listaUsuarios = listaUsuarios;
     }
-    public Usuario getUsuarioActual() {return usuarioActual;}
+public Usuario getUsuarioActual() {return usuarioActual;}
     public void setUsuarioActual(Usuario usuarioActual) {this.usuarioActual = usuarioActual;}
 
     //--Métodos especiales
@@ -73,7 +74,7 @@ public class GestorUsuarios {
      */
     public Usuario buscarUsuario(String nombre, String contrasenna) {
         for (Usuario usuario : listaUsuarios) {
-            if (usuario.getNombre() == nombre && usuario.getContrasenna() == contrasenna) {
+            if (usuario.getNombre().equals(nombre) && usuario.getContrasenna().equals(contrasenna)) {
                 return usuario;
             }
         }

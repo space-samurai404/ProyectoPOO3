@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class CantKilometros extends Metrica {
     //Atributos de la clase CantKm_Pasos
-    private final static double VALOR_MIN = 3;
+    private final static double VALOR_MIN = 4000;
     
 
     //Métodos de la clase CantKm_Pasos
@@ -20,7 +20,7 @@ public class CantKilometros extends Metrica {
 
     //--Métodos especiales
     public static String obtenerDescripcion() {
-        return "Cantidad de kilometros: " + VALOR_MIN ;
+        return "Cantidad de pasos: " + VALOR_MIN ;
     }
     @Override
     public Metrica clonar() {
@@ -35,7 +35,7 @@ public class CantKilometros extends Metrica {
     public ArrayList<Recomendacion> generarRecomendaciones() {
         ArrayList<Recomendacion> rec = new ArrayList<Recomendacion>();
         if (valorActual < VALOR_MIN)
-            rec.add(new Recomendacion(id, "Pocos kilometros recorridos."));
+            rec.add(new Recomendacion(id, "Pocos pasos dados."));
         
         return rec;
     }

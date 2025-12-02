@@ -27,6 +27,11 @@ public class Pantalla_Principal extends javax.swing.JFrame {
     private List valoresSuenno;
     private List valoresPasos;
     private Timer timer;
+    private Metrica MetricaRitmo;
+    private Metrica MetricaHorasSuenno;
+    private Metrica MetricaCantPasos;
+    private GestorUsuarios gu;
+    private int cont=0;
    
     /**
      * Creates new form Registro_Login
@@ -35,12 +40,19 @@ public class Pantalla_Principal extends javax.swing.JFrame {
         initComponents();
         this.controlador=controlador;
         
+        this.gu=controlador.getGestorUsuarios();
+        
         valoresCardio = new ArrayList<>();
         valoresSuenno = new ArrayList<>();
         valoresPasos = new ArrayList<>();
         
+        MetricaRitmo= new RitmoCardiaco();
+        MetricaHorasSuenno= new HorasSuenno();
+        MetricaCantPasos= new CantKilometros();
+        
         graficoPasos = new PanelDibujo();
         graficoSuenno = new PanelDibujo();
+        
         
         //Pasos
         pnl_graphicsCantPasos.setLayout(new BorderLayout());
@@ -57,17 +69,42 @@ public class Pantalla_Principal extends javax.swing.JFrame {
         cbo_metas.setModel(new DefaultComboBoxModel<>(metas.toArray(new Meta[0])));
         
         timer = new Timer(10000, e-> {
-        
-        valoresCardio.add(controlador.Simulacion(1));
-        lbl_bpm.setText(Double.toString(controlador.Simulacion(1)));
-        valoresSuenno.add(controlador.Simulacion(2));
-        valoresPasos.add(controlador.Simulacion(3));
- 
-        graficoSuenno.setValores(valoresSuenno);
-        graficoPasos.setValores(valoresPasos);
-        
-        graficoPasos.repaint();
-        graficoSuenno.repaint();
+            cont = 0; 
+            int simul=controlador.Simulacion(1);
+            valoresCardio.add(simul);
+            lbl_bpm.setText(Double.toString(simul));
+            valoresSuenno.add(controlador.Simulacion(2));
+            valoresPasos.add(controlador.Simulacion(3));
+            System.out.println(gu.getUsuarioActual());
+            for (Metrica m : gu.getUsuarioActual().getMetricasDiarias()){
+                cont++;
+
+                if (cont==1){
+                    m.setValorActual(simul);
+                }else if(cont==2){
+                    m.setValorActual(controlador.Simulacion(3));
+                }else if (cont==3){
+                    m.setValorActual(controlador.Simulacion(2));
+                }               
+            }
+            try{
+                controlador.procesarMetricas();
+            }catch(MiExcepcion ex){
+
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            try{
+                txt_reporte.setText(controlador.generarReporteConsolidado());
+            }catch(MiExcepcion ej){
+
+                JOptionPane.showMessageDialog(this, ej.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+            graficoSuenno.setValores(valoresSuenno);
+            graficoPasos.setValores(valoresPasos);
+
+            graficoPasos.repaint();
+            graficoSuenno.repaint();
         
 
     });
@@ -77,11 +114,21 @@ public class Pantalla_Principal extends javax.swing.JFrame {
     
     public Pantalla_Principal() {
         initComponents();
-        
         this.controlador=controlador;
+        
+        this.gu=controlador.getGestorUsuarios();
+        
+        valoresCardio = new ArrayList<>();
+        valoresSuenno = new ArrayList<>();
+        valoresPasos = new ArrayList<>();
+        
+        MetricaRitmo= new RitmoCardiaco();
+        MetricaHorasSuenno= new HorasSuenno();
+        MetricaCantPasos= new CantKilometros();
         
         graficoPasos = new PanelDibujo();
         graficoSuenno = new PanelDibujo();
+        
         
         //Pasos
         pnl_graphicsCantPasos.setLayout(new BorderLayout());
@@ -97,18 +144,47 @@ public class Pantalla_Principal extends javax.swing.JFrame {
         ArrayList<Meta> metas = controlador.obtenerMetasPredeterminadas();
         cbo_metas.setModel(new DefaultComboBoxModel<>(metas.toArray(new Meta[0])));
         
-        timer = new Timer(10000, e -> {
-        valoresCardio.add(controlador.Simulacion(1));
-        lbl_bpm.setText(Double.toString(controlador.Simulacion(1)));
+        timer = new Timer(10000, e-> {
+            int simul=controlador.Simulacion(1);
+            valoresCardio.add(simul);
+            lbl_bpm.setText(Double.toString(simul));
+            valoresSuenno.add(controlador.Simulacion(2));
+            valoresPasos.add(controlador.Simulacion(3));
 
-        valoresSuenno.add(controlador.Simulacion(2));
-        valoresPasos.add(controlador.Simulacion(3));
+            for (Metrica m : gu.getUsuarioActual().getMetricasDiarias()){
+                cont++;
 
-        graficoSuenno.setValores(valoresSuenno);
-        graficoPasos.setValores(valoresPasos);
+                if (cont==1){
+                    m.setValorActual(simul);
+                }else if(cont==2){
+                    m.setValorActual(controlador.Simulacion(3));
+                }else if (cont==3){
+                    m.setValorActual(controlador.Simulacion(2));
 
-        graficoPasos.repaint();
-        graficoSuenno.repaint();
+                }
+                System.out.println(Double.toString(m.getValorActual()));
+
+            }
+            try{
+                controlador.procesarMetricas();
+            }catch(MiExcepcion ex){
+
+                JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            try{
+                txt_reporte.setText(controlador.generarReporteConsolidado());
+            }catch(MiExcepcion ej){
+
+                JOptionPane.showMessageDialog(this, ej.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+            graficoSuenno.setValores(valoresSuenno);
+            graficoPasos.setValores(valoresPasos);
+
+            graficoPasos.repaint();
+            graficoSuenno.repaint();
+        
+
     });
  
     }
@@ -139,12 +215,11 @@ public class Pantalla_Principal extends javax.swing.JFrame {
         pnl_graphicsCantPasos = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
         pnl_graphicsCanthoras = new javax.swing.JPanel();
+        btn_guardarUser = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jPanel2 = new javax.swing.JPanel();
         btn_compartirInfo = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        lbl_recomendaciones = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
         txt_reporte = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -241,6 +316,15 @@ public class Pantalla_Principal extends javax.swing.JFrame {
 
         jScrollPane7.setViewportView(pnl_graphicsCanthoras);
 
+        btn_guardarUser.setBackground(new java.awt.Color(0, 0, 0));
+        btn_guardarUser.setForeground(new java.awt.Color(255, 255, 255));
+        btn_guardarUser.setText("Guardar y cerrar");
+        btn_guardarUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_guardarUserActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -249,10 +333,9 @@ public class Pantalla_Principal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel13)
-                        .addGap(55, 55, 55)
+                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(canvas1, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btn_consultarHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -264,7 +347,9 @@ public class Pantalla_Principal extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel11))
                     .addComponent(jLabel8)
-                    .addComponent(jLabel14))
+                    .addComponent(jLabel14)
+                    .addComponent(jLabel13)
+                    .addComponent(btn_guardarUser, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -279,23 +364,21 @@ public class Pantalla_Principal extends javax.swing.JFrame {
                         .addComponent(jLabel10)
                         .addComponent(jLabel11))
                     .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel14)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(canvas1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel13)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(canvas1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addComponent(btn_guardarUser, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_consultarHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(97, 97, 97))
+                .addGap(46, 46, 46))
         );
 
         jScrollPane1.setViewportView(jPanel3);
@@ -315,13 +398,6 @@ public class Pantalla_Principal extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(153, 153, 153));
         jLabel3.setText("Reporte consolidado");
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel7.setText("Recomendaciones Personalizadas");
-
-        lbl_recomendaciones.setForeground(new java.awt.Color(51, 51, 51));
-        lbl_recomendaciones.setText("<html>Cantidad de pasos promedio <br>tomados por semana:<html>");
-
         txt_reporte.setColumns(20);
         txt_reporte.setRows(5);
         jScrollPane5.setViewportView(txt_reporte);
@@ -337,10 +413,8 @@ public class Pantalla_Principal extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl_recomendaciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabel3)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -351,12 +425,8 @@ public class Pantalla_Principal extends javax.swing.JFrame {
                 .addGap(26, 26, 26)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbl_recomendaciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(335, Short.MAX_VALUE))
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 461, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(64, Short.MAX_VALUE))
         );
 
         jScrollPane3.setViewportView(jPanel2);
@@ -444,9 +514,6 @@ public class Pantalla_Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
-         
-        timer.start();
-      
 
     }//GEN-LAST:event_jTabbedPane1MouseClicked
 
@@ -467,6 +534,7 @@ public class Pantalla_Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_compartirInfoActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        System.out.print("pasa por aqui");
         try{
             controlador.guardarUsuarios();
         }catch(MiExcepcion e){
@@ -475,13 +543,25 @@ public class Pantalla_Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosed
 
     private void btn_consultarHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_consultarHistorialActionPerformed
-        this.setVisible(false);
+
         new Historial(controlador).setVisible(true);
     }//GEN-LAST:event_btn_consultarHistorialActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         timer.start();
     }//GEN-LAST:event_formWindowOpened
+
+    private void btn_guardarUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guardarUserActionPerformed
+        
+        try{
+            controlador.guardarUsuarios();
+            System.exit(0);
+            
+        }catch(MiExcepcion e){
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_btn_guardarUserActionPerformed
 
     /**
      * @param args the command line arguments
@@ -525,6 +605,7 @@ public class Pantalla_Principal extends javax.swing.JFrame {
     private javax.swing.JButton btn_compartirInfo;
     private javax.swing.JButton btn_consultarHistorial;
     private javax.swing.JButton btn_guardarConfig;
+    private javax.swing.JButton btn_guardarUser;
     private java.awt.Canvas canvas1;
     private javax.swing.JComboBox<Meta> cbo_metas;
     private javax.swing.JLabel jLabel1;
@@ -535,7 +616,6 @@ public class Pantalla_Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -549,7 +629,6 @@ public class Pantalla_Principal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel lbl_bpm;
-    private javax.swing.JLabel lbl_recomendaciones;
     private javax.swing.JPanel pnl_graphicsCantPasos;
     private javax.swing.JPanel pnl_graphicsCanthoras;
     private javax.swing.JTable tab_Referencias;

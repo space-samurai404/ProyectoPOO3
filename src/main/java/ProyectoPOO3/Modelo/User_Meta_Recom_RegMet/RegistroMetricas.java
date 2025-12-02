@@ -13,10 +13,12 @@ public class RegistroMetricas implements Serializable {
 
     //Métodos de la clase RegistroMetricas
     //--Constructores y getters-setters
-    public RegistroMetricas() {}
+    public RegistroMetricas() {
+    this.metricasDiarias = new ArrayList<>();
+        this.fecha = LocalDate.now();}
     public RegistroMetricas(ArrayList<Metrica> metricasDiarias, LocalDate fecha) {
-        this.metricasDiarias = metricasDiarias;
-        this.fecha = fecha;
+        this.metricasDiarias = new ArrayList<>();
+        this.fecha = LocalDate.now();
     }
     public ArrayList<Metrica> getMetricasDiarias() {
         return metricasDiarias;
