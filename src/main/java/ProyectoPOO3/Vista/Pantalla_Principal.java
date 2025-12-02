@@ -71,20 +71,61 @@ public class Pantalla_Principal extends javax.swing.JFrame {
         timer = new Timer(10000, e-> {
             cont = 0; 
             int simul=controlador.Simulacion(1);
-            valoresCardio.add(simul);
-            lbl_bpm.setText(Double.toString(simul));
-            valoresSuenno.add(controlador.Simulacion(2));
-            valoresPasos.add(controlador.Simulacion(3));
+            int simul2=controlador.Simulacion(2);
+            int simul3=controlador.Simulacion(3);
+            
+        if (simul > 100) {
+        JOptionPane.showMessageDialog(this, 
+            "⚠️ Ritmo cardiaco muy alto: " + simul + " BPM",
+            "Alerta salud",
+            JOptionPane.WARNING_MESSAGE);
+        }
+            
+        if (simul < 60) {
+        JOptionPane.showMessageDialog(this, 
+            "⚠️ Ritmo cardiaco muy bajo: " + simul + " BPM",
+            "Alerta salud",
+            JOptionPane.WARNING_MESSAGE);
+        }
+
+        if (simul2 < 6) {
+            JOptionPane.showMessageDialog(this,
+                "⚠️ Dormiste menos de 6 horas",
+                "Alerta sueño",
+                JOptionPane.WARNING_MESSAGE);
+        }
+        
+        if (simul2 > 9) {
+            JOptionPane.showMessageDialog(this,
+                "⚠️ Dormiste demasiado",
+                "Alerta sueño",
+                JOptionPane.WARNING_MESSAGE);
+        }
+
+        if (simul3 < 4000) {
+            JOptionPane.showMessageDialog(this,
+                "⚠️ Pasos muy bajos hoy",
+                "Alerta actividad",
+                JOptionPane.WARNING_MESSAGE);
+        }
+                valoresCardio.add(simul);
+                lbl_bpm.setText(Double.toString(simul));
+                valoresSuenno.add(simul3);
+                valoresPasos.add(simul2);
+            
+            
+            
+            
             System.out.println(gu.getUsuarioActual());
             for (Metrica m : gu.getUsuarioActual().getMetricasDiarias()){
                 cont++;
-
+                
                 if (cont==1){
                     m.setValorActual(simul);
                 }else if(cont==2){
-                    m.setValorActual(controlador.Simulacion(3));
+                    m.setValorActual(simul3);
                 }else if (cont==3){
-                    m.setValorActual(controlador.Simulacion(2));
+                    m.setValorActual(simul2);
                 }               
             }
             try{
@@ -146,10 +187,49 @@ public class Pantalla_Principal extends javax.swing.JFrame {
         
         timer = new Timer(10000, e-> {
             int simul=controlador.Simulacion(1);
+            int simul2=controlador.Simulacion(2);
+            int simul3=controlador.Simulacion(3);
+            
+            
             valoresCardio.add(simul);
             lbl_bpm.setText(Double.toString(simul));
-            valoresSuenno.add(controlador.Simulacion(2));
-            valoresPasos.add(controlador.Simulacion(3));
+            valoresSuenno.add(simul3);
+            valoresPasos.add(simul2);
+            
+            if (simul > 100) {
+        JOptionPane.showMessageDialog(this, 
+            "⚠️ Ritmo cardiaco muy alto: " + simul + " BPM",
+            "Alerta salud",
+            JOptionPane.WARNING_MESSAGE);
+        }
+            
+        if (simul < 60) {
+        JOptionPane.showMessageDialog(this, 
+            "⚠️ Ritmo cardiaco muy bajo: " + simul + " BPM",
+            "Alerta salud",
+            JOptionPane.WARNING_MESSAGE);
+        }
+
+        if (simul2 < 6) {
+            JOptionPane.showMessageDialog(this,
+                "⚠️ Dormiste menos de 6 horas",
+                "Alerta sueño",
+                JOptionPane.WARNING_MESSAGE);
+        }
+        
+        if (simul2 > 9) {
+            JOptionPane.showMessageDialog(this,
+                "⚠️ Dormiste demasiado",
+                "Alerta sueño",
+                JOptionPane.WARNING_MESSAGE);
+        }
+
+        if (simul3 < 4000) {
+            JOptionPane.showMessageDialog(this,
+                "⚠️ Pasos muy bajos hoy",
+                "Alerta actividad",
+                JOptionPane.WARNING_MESSAGE);
+        }
 
             for (Metrica m : gu.getUsuarioActual().getMetricasDiarias()){
                 cont++;
