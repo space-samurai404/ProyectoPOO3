@@ -149,7 +149,7 @@ public class Control {
      */
     public ArrayList<Meta> obtenerMetasPredeterminadas() {
         ArrayList<Meta> metas = new ArrayList<>();
-        metas.add(new Meta("Caminar 5 km al día", 5, new CantKilometros()));
+        metas.add(new Meta("Caminar 5 km al día", 6000, new CantKilometros()));
         metas.add(new Meta("Dormir 8 horas", 8, new HorasSuenno()));
         metas.add(new Meta("Llegar a 100 latidos en ejercicio",100, new RitmoCardiaco()));
         return metas;
