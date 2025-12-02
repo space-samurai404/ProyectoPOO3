@@ -19,9 +19,9 @@ public class Wearable implements Serializable {
     public Wearable(TipoWearable tipoWearable) {
         this.tipoWearable = tipoWearable;
         this.metricasAsociadas = new ArrayList<>();
-        metricasAsociadas.add(new RitmoCardiaco("HR"));
-        metricasAsociadas.add(new CantKilometros("KM"));
-        metricasAsociadas.add(new HorasSuenno("HS"));
+        metricasAsociadas.add(new RitmoCardiaco("Ritmo cardiaco"));
+        metricasAsociadas.add(new CantKilometros("Cantidad de pasos"));
+        metricasAsociadas.add(new HorasSuenno("Horas de sueño"));
     }
     public ArrayList<Metrica> getMetricasAsociadas() {
         return metricasAsociadas;

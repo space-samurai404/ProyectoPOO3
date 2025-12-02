@@ -77,7 +77,9 @@ public class Control {
             throw new MiExcepcion(ICodigos.ERROR_CONTRASENNA_INVALIDA);
         }
         Usuario usuario = gestorUsuarios.buscarUsuario(nombre,contrasenna);
+        
         gestorUsuarios.setUsuarioActual(usuario);
+        System.out.println("usuario encontrado");
         return true;
     }
     /**
@@ -110,12 +112,17 @@ public class Control {
         Usuario usuarioActual = gestorUsuarios.getUsuarioActual();
         LocalDate fechaNueva = usuarioActual.getFechaUltRegistro().plusDays(1);
         RegistroMetricas registro = new RegistroMetricas();
+        for(Metrica m : usuarioActual.getMetricasDiarias()){
+            registro.getMetricasDiarias().add(m);
+        }
+        
         usuarioActual.setFechaUltRegistro(fechaNueva);
         registro.setFecha(fechaNueva);
         usuarioActual.getRecomendacionesDiarias().clear();
+        System.out.println(usuarioActual.getMetricasDiarias());
 
         for (Metrica metrica : usuarioActual.getMetricasDiarias()) {
-            metrica.normalizarDatos();
+            //metrica.normalizarDatos();
             // Guardar copia de la métrica en el registro del día
             registro.getMetricasDiarias().add(metrica.clonar());
             // Generar recomendaciones basadas en esa métrica
@@ -269,6 +276,9 @@ public class Control {
                     min = 50;
                     max = 100;
                     numero = (int)(Math.random() * (max - min + 1)) + min;
+                    if (numero>100){
+                        
+                    }
                     break;
                     
                 case 2:
