@@ -1,6 +1,8 @@
 package ProyectoPOO3.Controlador.Archivos_Excepciones;
 
-public class MiExcepcion extends RuntimeException {
+import java.io.Serializable;
+
+public class MiExcepcion extends RuntimeException implements Serializable {
     //Atributos de la clase MiExcepcion
     private int codigo;
 

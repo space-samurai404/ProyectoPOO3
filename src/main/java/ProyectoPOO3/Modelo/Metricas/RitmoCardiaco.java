@@ -2,9 +2,10 @@ package ProyectoPOO3.Modelo.Metricas;
 
 import ProyectoPOO3.Modelo.User_Meta_Recom_RegMet.Recomendacion;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class RitmoCardiaco extends Metrica {
+public class RitmoCardiaco extends Metrica implements Serializable {
     //Atributos de la clase RitmoCardiaco
     private final static double VALOR_MIN = 50;
     private final static double VALOR_MAX = 100;

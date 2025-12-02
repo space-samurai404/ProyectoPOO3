@@ -155,8 +155,11 @@ public class Control {
     public void asignarMeta(int indiceMeta) throws MiExcepcion {
         Usuario usuarioActual = gestorUsuarios.getUsuarioActual();
         ArrayList<Meta> pred = obtenerMetasPredeterminadas();
-        Meta elegida = pred.get(indiceMeta);
-        usuarioActual.getMetasActivas().add(elegida);
+
+        Meta base = pred.get(indiceMeta);
+        Meta copia = new Meta(base, usuarioActual.getMetricasDiarias());
+
+        usuarioActual.getMetasActivas().add(copia);
     }
     /**
      * Metodo que obtiene el ultimo registro del historial y a partir de eso crea un String para ser exportado
