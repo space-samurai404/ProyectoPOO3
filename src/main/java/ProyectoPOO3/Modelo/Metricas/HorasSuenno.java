@@ -2,9 +2,10 @@ package ProyectoPOO3.Modelo.Metricas;
 
 import ProyectoPOO3.Modelo.User_Meta_Recom_RegMet.Recomendacion;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class HorasSuenno extends Metrica {
+public class HorasSuenno extends Metrica implements Serializable {
     //Atributos de la clase HorasSuenno
     private final static double VALOR_MIN = 6;
     private final static double VALOR_MAX = 9;

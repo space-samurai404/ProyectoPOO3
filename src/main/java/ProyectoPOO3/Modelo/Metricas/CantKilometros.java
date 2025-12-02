@@ -2,9 +2,10 @@ package ProyectoPOO3.Modelo.Metricas;
 
 import ProyectoPOO3.Modelo.User_Meta_Recom_RegMet.Recomendacion;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class CantKilometros extends Metrica {
+public class CantKilometros extends Metrica implements Serializable {
     //Atributos de la clase CantKm_Pasos
     private final static double VALOR_MIN = 4000;
     

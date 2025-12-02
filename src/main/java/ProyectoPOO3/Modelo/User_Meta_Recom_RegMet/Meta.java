@@ -1,6 +1,7 @@
 package ProyectoPOO3.Modelo.User_Meta_Recom_RegMet;
 import ProyectoPOO3.Modelo.Metricas.Metrica;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Meta implements Serializable {
@@ -19,6 +20,19 @@ public class Meta implements Serializable {
         this.metricaAsignada = metricaAsignada;
         this.porcentaje = 0;
     }
+    public Meta(Meta original, ArrayList<Metrica> metricasDelUsuario) {
+        this.descripcion = original.descripcion;
+        this.meta = original.meta;
+        this.porcentaje = 0;
+
+        // Debe enlazar a la métrica del usuario, NO la predeterminada
+        this.metricaAsignada = buscarMetricaCorrespondiente(
+                original.metricaAsignada.getClass(),
+                metricasDelUsuario
+        );
+    }
+
+
     public String getDescripcion() {
         return descripcion;
     }
@@ -48,6 +62,13 @@ public class Meta implements Serializable {
             this.porcentaje = progreso * 100;   // <-- AQUÍ !!!
         }
     }
+    private Metrica buscarMetricaCorrespondiente(Class<?> tipo, ArrayList<Metrica> metricas) {
+        for (Metrica m : metricas) {
+            if (m.getClass().equals(tipo)) return m;
+        }
+        return null; // si no la encuentra
+    }
+
 
 
     @Override

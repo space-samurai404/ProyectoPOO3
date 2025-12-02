@@ -20,7 +20,6 @@ public class GestorArchivos {
     /**
      * Metodo que guarda toda la información de los usuarios en archivos binarios
      * @param nombreArchivo: Atributo String que representa el nombre del archivo.
-     * @param listaUsuarios: Atributo tipo ArrayList<Usuario> que representa toda la información de los usuarios.
      * @return: Retorna un atributo int, que representa un codigo de éxito de la interfaz ICodigos.
      * @throws MiExcepcion
      */
