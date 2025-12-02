@@ -78,7 +78,12 @@ public class Usuario implements Serializable {
     public ArrayList<Recomendacion> getRecomendacionesDiarias() {return recomendacionesDiarias;}
     public void setRecomendacionesDiarias(ArrayList<Recomendacion> recomendacionesDiarias) {this.recomendacionesDiarias = recomendacionesDiarias;}
     public ArrayList<Metrica> getMetricasDiarias() {return metricasDiarias;}
-    public void setMetricasDiarias(ArrayList<Metrica> metricas) {this.metricasDiarias = metricas;}
+    public void setMetricasDiarias(ArrayList<Metrica> metricas) {
+        this.metricasDiarias = new ArrayList<>();
+        for (Metrica m : metricas) {
+            this.metricasDiarias.add(m.clonar());
+        }
+    }
     public LocalDate getFechaUltRegistro() {return fechaUltRegistro;}
     public void setFechaUltRegistro(LocalDate fechaUltRegistro) {this.fechaUltRegistro = fechaUltRegistro;}
 
