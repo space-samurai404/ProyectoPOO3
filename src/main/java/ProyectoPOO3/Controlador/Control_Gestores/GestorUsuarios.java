@@ -4,7 +4,9 @@ import ProyectoPOO3.Modelo.User_Meta_Recom_RegMet.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+
 public class GestorUsuarios implements Serializable{
+
     //Atributos de la clase GestorUsuarios
     private ArrayList<Usuario> listaUsuarios;
     private Usuario usuarioActual;
