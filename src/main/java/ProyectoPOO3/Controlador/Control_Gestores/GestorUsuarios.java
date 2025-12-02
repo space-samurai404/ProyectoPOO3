@@ -4,9 +4,13 @@ import ProyectoPOO3.Modelo.User_Meta_Recom_RegMet.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+<<<<<<< HEAD
 
 public class GestorUsuarios implements Serializable{
 
+=======
+public class GestorUsuarios implements Serializable {
+>>>>>>> 24e8a19f2cba7d060054789d41edba1472e56b41
     //Atributos de la clase GestorUsuarios
     private ArrayList<Usuario> listaUsuarios;
     private Usuario usuarioActual;
