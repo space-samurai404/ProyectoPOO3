@@ -69,15 +69,17 @@ public class Pantalla_Principal extends javax.swing.JFrame {
         cbo_metas.setModel(new DefaultComboBoxModel<>(metas.toArray(new Meta[0])));
         
         timer = new Timer(10000, e-> {
-            cont = 0; 
             int simul=controlador.Simulacion(1);
             int simul2=controlador.Simulacion(2);
             int simul3=controlador.Simulacion(3);
+            
+            
             valoresCardio.add(simul);
             lbl_bpm.setText(Double.toString(simul));
             valoresSuenno.add(simul2);
             valoresPasos.add(simul3);
-        if (simul > 100) {
+            
+            if (simul > 100) {
         JOptionPane.showMessageDialog(this, 
             "⚠️ Ritmo cardiaco muy alto: " + simul + " BPM",
             "Alerta salud",
@@ -111,22 +113,20 @@ public class Pantalla_Principal extends javax.swing.JFrame {
                 "Alerta actividad",
                 JOptionPane.WARNING_MESSAGE);
         }
-                
-            
-            
-            
-            
-            System.out.println(gu.getUsuarioActual());
+
             for (Metrica m : gu.getUsuarioActual().getMetricasDiarias()){
                 cont++;
-                
+
                 if (cont==1){
                     m.setValorActual(simul);
                 }else if(cont==2){
                     m.setValorActual(simul3);
                 }else if (cont==3){
                     m.setValorActual(simul2);
-                }               
+
+                }
+                System.out.println(Double.toString(m.getValorActual()));
+
             }
             try{
                 controlador.procesarMetricas();
@@ -237,9 +237,9 @@ public class Pantalla_Principal extends javax.swing.JFrame {
                 if (cont==1){
                     m.setValorActual(simul);
                 }else if(cont==2){
-                    m.setValorActual(controlador.Simulacion(3));
+                    m.setValorActual(simul3);
                 }else if (cont==3){
-                    m.setValorActual(controlador.Simulacion(2));
+                    m.setValorActual(simul2);
 
                 }
                 System.out.println(Double.toString(m.getValorActual()));
