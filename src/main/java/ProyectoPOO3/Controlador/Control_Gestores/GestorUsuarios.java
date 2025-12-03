@@ -28,7 +28,7 @@ public class GestorUsuarios implements Serializable {
     public void setListaUsuarios(ArrayList<Usuario> listaUsuarios) {
         this.listaUsuarios = listaUsuarios;
     }
-public Usuario getUsuarioActual() {return usuarioActual;}
+    public Usuario getUsuarioActual() {return usuarioActual;}
     public void setUsuarioActual(Usuario usuarioActual) {this.usuarioActual = usuarioActual;}
 
     //--Métodos especiales
