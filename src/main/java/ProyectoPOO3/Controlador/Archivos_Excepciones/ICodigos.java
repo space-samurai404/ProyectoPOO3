@@ -11,4 +11,5 @@ public interface ICodigos {
     int ERROR_CLASE_NO_ENCONTRADA = 6;
     int ERROR_ARCHIVO_READ = 7;
     int ERROR_REGISTRO_NO_EXISTE = 8;
+    int ERROR_REGISTRO = 9;
 }

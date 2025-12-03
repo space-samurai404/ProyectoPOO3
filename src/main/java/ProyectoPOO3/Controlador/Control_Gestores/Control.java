@@ -35,7 +35,6 @@ public class Control {
      * @param nombre: Atributo String que es el nombre del usuario.
      * @param contrasenna: Atributo String que es la contrasenna del usuario.
      * @param correo: Atributo String que es el correo del usuario.
-     * @param listaWereables: Atributo ArrayList de elementos tipo Wereable, que son los wereables elegidos por el usuario.
      * @return: Retorna true si se hace correctamente, lanza una excepcion si no.
      * @throws MiExcepcion
      */
@@ -94,7 +93,7 @@ public class Control {
         return true;
     }
     /**
-     * Metodo que carga la informacion de los usuarios de un archivo binario.
+     * Metodo que carga la información de los usuarios de un archivo binario.
      * @return : Retorna true si se carga adecuadamente, si no lanza excepción.
      * @throws MiExcepcion
      */
@@ -111,24 +110,27 @@ public class Control {
     public void procesarMetricas() throws MiExcepcion {
         Usuario usuarioActual = gestorUsuarios.getUsuarioActual();
         LocalDate fechaNueva = usuarioActual.getFechaUltRegistro().plusDays(1);
-        RegistroMetricas registro = new RegistroMetricas();
-        for(Metrica m : usuarioActual.getMetricasDiarias()){
-            registro.getMetricasDiarias().add(m);
-        }
-        
-        usuarioActual.setFechaUltRegistro(fechaNueva);
-        registro.setFecha(fechaNueva);
-        usuarioActual.getRecomendacionesDiarias().clear();
-        System.out.println(usuarioActual.getMetricasDiarias());
 
+        RegistroMetricas registro = new RegistroMetricas();
+        registro.setFecha(fechaNueva);
+        if (usuarioActual.getMetricasDiarias().isEmpty()) {
+            throw new MiExcepcion(ICodigos.ERROR_REGISTRO);
+        }
+        for (RegistroMetricas r : usuarioActual.getHistorial()) {
+            if (r.getFecha().equals(fechaNueva)) {
+               throw new MiExcepcion(ICodigos.ERROR_REGISTRO);
+            }
+        }
+        usuarioActual.getRecomendacionesDiarias().clear();
+        // Guardar copias de las métricas y generar recomendaciones
         for (Metrica metrica : usuarioActual.getMetricasDiarias()) {
-            //metrica.normalizarDatos();
-            // Guardar copia de la métrica en el registro del día
             registro.getMetricasDiarias().add(metrica.clonar());
-            // Generar recomendaciones basadas en esa métrica
             ArrayList<Recomendacion> recs = metrica.generarRecomendaciones();
             usuarioActual.getRecomendacionesDiarias().addAll(recs);
         }
+        // Actualizar fecha del usuario SOLO después de validar duplicados
+        usuarioActual.setFechaUltRegistro(fechaNueva);
+        // Agregar al historial cuando ya está validado
         usuarioActual.getHistorial().add(registro);
     }
     /**

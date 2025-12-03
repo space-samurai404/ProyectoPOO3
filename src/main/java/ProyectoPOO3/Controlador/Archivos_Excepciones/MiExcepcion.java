@@ -27,6 +27,7 @@ public class MiExcepcion extends RuntimeException implements Serializable {
             case ICodigos.ERROR_CLASE_NO_ENCONTRADA -> mensaje = "ClassNotFoundException";
             case ICodigos.ERROR_ARCHIVO_READ -> mensaje = "FileReadException";
             case ICodigos.ERROR_REGISTRO_NO_EXISTE -> mensaje = "RegistrationNotFoundException";
+            case ICodigos.ERROR_REGISTRO -> mensaje = "MetricLogException";
         }
         return mensaje;
     }
