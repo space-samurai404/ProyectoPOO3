@@ -119,7 +119,7 @@ public class Control {
             ArrayList<Recomendacion> recs = metrica.generarRecomendaciones();
             usuarioActual.getRecomendacionesDiarias().addAll(recs);
         }
-        usuarioActual.getHistorial().add(registro);
+        usuarioActual.getHistorial().add(registro.clonar());
     }
     /**
      * Metodo que muestra la información de las referencias de las 3 métricas medibles del sistema
