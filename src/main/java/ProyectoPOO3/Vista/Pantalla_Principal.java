@@ -128,6 +128,15 @@ public class Pantalla_Principal extends javax.swing.JFrame {
                 System.out.println(Double.toString(m.getValorActual()));
 
             }
+            
+            RegistroMetricas registro = controlador.obtenerRegistroDelDia();
+                int i = 0;
+                for (Metrica m : registro.getMetricasDiarias()) {
+                    if (i == 0) m.setValorActual(simul);
+                    else if (i == 1) m.setValorActual(simul3);
+                    else if (i == 2) m.setValorActual(simul2);
+                    i++;
+}
             try{
                 controlador.procesarMetricas();
             }catch(MiExcepcion ex){
@@ -610,7 +619,15 @@ public class Pantalla_Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_guardarConfigActionPerformed
 
     private void btn_compartirInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_compartirInfoActionPerformed
-        controlador.exportarReporteParaProfesional();
+        
+        try{
+           controlador.exportarReporteParaProfesional();
+           JOptionPane.showMessageDialog(this, "Reporte compartido con profesional con exito");
+        }catch(MiExcepcion e){
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+          
+        
     }//GEN-LAST:event_btn_compartirInfoActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
