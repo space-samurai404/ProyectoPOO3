@@ -35,6 +35,10 @@ public class RegistroMetricas implements Serializable {
     public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
+    public RegistroMetricas clonar() {
+        RegistroMetricas registro = new RegistroMetricas(this.metricasDiarias, this.fecha);
+        return registro;
+    }
     @Override
     public String toString() {
         return "RegistroMetricas{" +
