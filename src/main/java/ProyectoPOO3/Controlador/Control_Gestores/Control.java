@@ -204,7 +204,7 @@ public class Control {
     public String generarReporteConsolidado() throws MiExcepcion{
         Usuario usuarioActual = gestorUsuarios.getUsuarioActual();
         RegistroMetricas registro = obtenerRegistroDelDia();
-
+        System.out.println(obtenerRegistroDelDia());
         StringBuilder reporte = new StringBuilder();
         reporte.append("Reporte Consolidado \n");
         reporte.append("Usuario: ").append(usuarioActual.getNombre()).append("\n");
