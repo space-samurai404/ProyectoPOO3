@@ -112,15 +112,10 @@ public class Control {
         LocalDate fechaNueva = usuarioActual.getFechaUltRegistro().plusDays(1);
         RegistroMetricas registro = new RegistroMetricas();
 
-        for(Metrica m : usuarioActual.getMetricasDiarias()){
-            registro.getMetricasDiarias().add(m);
-        }
-        usuarioActual.setFechaUltRegistro(fechaNueva);
-        
         registro.setFecha(fechaNueva);
         usuarioActual.getRecomendacionesDiarias().clear();
         for (Metrica metrica : usuarioActual.getMetricasDiarias()) {
-            registro.getMetricasDiarias().add(metrica.clonar());
+            registro.getMetricasDiarias().add(metrica);
             ArrayList<Recomendacion> recs = metrica.generarRecomendaciones();
             usuarioActual.getRecomendacionesDiarias().addAll(recs);
         }
