@@ -73,7 +73,10 @@ public class Pantalla_Principal extends javax.swing.JFrame {
             int simul=controlador.Simulacion(1);
             int simul2=controlador.Simulacion(2);
             int simul3=controlador.Simulacion(3);
-            
+            valoresCardio.add(simul);
+            lbl_bpm.setText(Double.toString(simul));
+            valoresSuenno.add(simul2);
+            valoresPasos.add(simul3);
         if (simul > 100) {
         JOptionPane.showMessageDialog(this, 
             "⚠️ Ritmo cardiaco muy alto: " + simul + " BPM",
@@ -108,10 +111,7 @@ public class Pantalla_Principal extends javax.swing.JFrame {
                 "Alerta actividad",
                 JOptionPane.WARNING_MESSAGE);
         }
-                valoresCardio.add(simul);
-                lbl_bpm.setText(Double.toString(simul));
-                valoresSuenno.add(simul3);
-                valoresPasos.add(simul2);
+                
             
             
             
@@ -193,8 +193,8 @@ public class Pantalla_Principal extends javax.swing.JFrame {
             
             valoresCardio.add(simul);
             lbl_bpm.setText(Double.toString(simul));
-            valoresSuenno.add(simul3);
-            valoresPasos.add(simul2);
+            valoresSuenno.add(simul2);
+            valoresPasos.add(simul3);
             
             if (simul > 100) {
         JOptionPane.showMessageDialog(this, 
