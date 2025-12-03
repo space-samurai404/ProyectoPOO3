@@ -110,27 +110,16 @@ public class Control {
     public void procesarMetricas() throws MiExcepcion {
         Usuario usuarioActual = gestorUsuarios.getUsuarioActual();
         LocalDate fechaNueva = usuarioActual.getFechaUltRegistro().plusDays(1);
-
         RegistroMetricas registro = new RegistroMetricas();
+
+        usuarioActual.setFechaUltRegistro(fechaNueva);
         registro.setFecha(fechaNueva);
-        if (usuarioActual.getMetricasDiarias().isEmpty()) {
-            throw new MiExcepcion(ICodigos.ERROR_REGISTRO);
-        }
-        for (RegistroMetricas r : usuarioActual.getHistorial()) {
-            if (r.getFecha().equals(fechaNueva)) {
-               throw new MiExcepcion(ICodigos.ERROR_REGISTRO);
-            }
-        }
         usuarioActual.getRecomendacionesDiarias().clear();
-        // Guardar copias de las métricas y generar recomendaciones
         for (Metrica metrica : usuarioActual.getMetricasDiarias()) {
             registro.getMetricasDiarias().add(metrica.clonar());
             ArrayList<Recomendacion> recs = metrica.generarRecomendaciones();
             usuarioActual.getRecomendacionesDiarias().addAll(recs);
         }
-        // Actualizar fecha del usuario SOLO después de validar duplicados
-        usuarioActual.setFechaUltRegistro(fechaNueva);
-        // Agregar al historial cuando ya está validado
         usuarioActual.getHistorial().add(registro);
     }
     /**
