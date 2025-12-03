@@ -111,11 +111,11 @@ public class Control {
         Usuario usuarioActual = gestorUsuarios.getUsuarioActual();
         LocalDate fechaNueva = usuarioActual.getFechaUltRegistro().plusDays(1);
         RegistroMetricas registro = new RegistroMetricas();
-        
+
         registro.setFecha(fechaNueva);
         usuarioActual.getRecomendacionesDiarias().clear();
         for (Metrica metrica : usuarioActual.getMetricasDiarias()) {
-            registro.getMetricasDiarias().add(metrica.clonar());
+            registro.getMetricasDiarias().add(metrica);
             ArrayList<Recomendacion> recs = metrica.generarRecomendaciones();
             usuarioActual.getRecomendacionesDiarias().addAll(recs);
         }
