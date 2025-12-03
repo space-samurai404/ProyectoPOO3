@@ -17,8 +17,8 @@ public class RegistroMetricas implements Serializable {
     this.metricasDiarias = new ArrayList<>();
         this.fecha = LocalDate.now();}
     public RegistroMetricas(ArrayList<Metrica> metricasDiarias, LocalDate fecha) {
-        this.metricasDiarias = new ArrayList<>();
-        this.fecha = LocalDate.now();
+        this.metricasDiarias = new ArrayList<>(metricasDiarias);
+        this.fecha = fecha;
     }
     public ArrayList<Metrica> getMetricasDiarias() {
         return metricasDiarias;

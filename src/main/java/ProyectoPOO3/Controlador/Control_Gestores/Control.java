@@ -116,7 +116,7 @@ public class Control {
         registro.setFecha(fechaNueva);
         usuarioActual.getRecomendacionesDiarias().clear();
         for (Metrica metrica : usuarioActual.getMetricasDiarias()) {
-            registro.getMetricasDiarias().add(metrica);
+            registro.getMetricasDiarias().add(metrica.clonar());
             ArrayList<Recomendacion> recs = metrica.generarRecomendaciones();
             usuarioActual.getRecomendacionesDiarias().addAll(recs);
         }
